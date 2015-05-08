@@ -1,0 +1,124 @@
+CREATE PROCEDURE fn_revenu_expense_ratio_pro(IN paramFnYear integer,IN paramFnArea VARCHAR(256),IN paramFnOrg VARCHAR(256),IN paramFnDep VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+
+		select RATIO_NAME
+        ,unit
+        ,last_two_year_ratio
+        ,last_year_ratio
+        ,this_year_ratio
+        from
+        (		
+		select RATIO_NAME
+		,'ร้อยละ' as unit
+		,coalesce(last_two_year_ratio,0) as last_two_year_ratio
+		,coalesce(last_year_ratio,0) as last_year_ratio
+		,coalesce(this_year_ratio,0) as this_year_ratio
+		,fn_ra.RATIO_KEY
+		from (select * from FN_RATIO_NUM where RATIO_KEY in ('7')) fn_ra
+		left join (
+					select RATIO_KEY
+					,CASE WHEN sum(DENOMINATOR1) = 0 THEN 0 ELSE decimal(dec(sum(NUMERATOR1),20,2)/sum(DENOMINATOR1), 9,2) END AS this_year_ratio
+					from FN_FINANCIAL_RATIO_RESULT
+					left join DIM_DATE on DIM_DATE.DATE_KEY = FN_FINANCIAL_RATIO_RESULT.MONTH_KEY
+					left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_FINANCIAL_RATIO_RESULT.DEPARTMENT_KEY
+					where (RATIO_KEY in ('7')) 
+					and (DIM_DATE.FISCAL_YEAR = paramFnYear)
+					and (DIM_DATE.FISCAL_MONTH_NO <= '12')
+					and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+					and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+					and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+					group by RATIO_NAME,RATIO_KEY,RATIO_GROUPNAME
+		) this_year  on fn_ra.RATIO_KEY = this_year.RATIO_KEY
+		left join (
+					select RATIO_KEY
+					,CASE WHEN sum(DENOMINATOR1) = 0 THEN 0 ELSE decimal(dec(sum(NUMERATOR1),20,2)/sum(DENOMINATOR1), 9,2) END as last_year_ratio
+					from FN_FINANCIAL_RATIO_RESULT
+					left join DIM_DATE on DIM_DATE.DATE_KEY = FN_FINANCIAL_RATIO_RESULT.MONTH_KEY
+					left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_FINANCIAL_RATIO_RESULT.DEPARTMENT_KEY
+					where (RATIO_KEY in ('7')) 
+					and (DIM_DATE.FISCAL_YEAR = paramFnYear-1)
+					and (DIM_DATE.FISCAL_MONTH_NO <= '12')
+					and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+					and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+					and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+					group by RATIO_NAME,RATIO_KEY,RATIO_GROUPNAME
+		) last_year  on fn_ra.RATIO_KEY = last_year.RATIO_KEY
+		left join (
+					select RATIO_KEY
+					,CASE WHEN sum(DENOMINATOR1) = 0 THEN 0 ELSE decimal(dec(sum(NUMERATOR1),20,2)/sum(DENOMINATOR1), 9,2) END as last_two_year_ratio
+					from FN_FINANCIAL_RATIO_RESULT
+					left join DIM_DATE on DIM_DATE.DATE_KEY = FN_FINANCIAL_RATIO_RESULT.MONTH_KEY
+					left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_FINANCIAL_RATIO_RESULT.DEPARTMENT_KEY
+					where (RATIO_KEY in ('7')) 
+					and (DIM_DATE.FISCAL_YEAR = paramFnYear-2)
+					and (DIM_DATE.FISCAL_MONTH_NO <= '12')
+					and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+					and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+					and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+					group by RATIO_NAME,RATIO_KEY,RATIO_GROUPNAME
+		) last_two_year  on fn_ra.RATIO_KEY = last_two_year.RATIO_KEY
+		
+		union
+		
+		select RATIO_NAME
+		,'เท่า' as unit
+		,coalesce(last_two_year_ratio,0) as last_two_year_ratio
+		,coalesce(last_year_ratio,0) as last_year_ratio
+		,coalesce(this_year_ratio,0) as this_year_ratio
+		,fn_ra.RATIO_KEY
+		from (select * from FN_RATIO_NUM where RATIO_KEY in ('8','9')) fn_ra
+		left join (
+					select RATIO_KEY
+					,CASE WHEN sum(DENOMINATOR1) = 0 THEN 0 ELSE decimal(dec(sum(NUMERATOR1),20,2)/sum(DENOMINATOR1), 9,2) END AS this_year_ratio
+					from FN_FINANCIAL_RATIO_RESULT
+					left join DIM_DATE on DIM_DATE.DATE_KEY = FN_FINANCIAL_RATIO_RESULT.MONTH_KEY
+					left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_FINANCIAL_RATIO_RESULT.DEPARTMENT_KEY
+					where (RATIO_KEY in ('8','9')) 
+					and (DIM_DATE.FISCAL_YEAR = paramFnYear)
+					and (DIM_DATE.FISCAL_MONTH_NO <= '12')
+					and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+					and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+					and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+					group by RATIO_NAME,RATIO_KEY,RATIO_GROUPNAME
+		) this_year  on fn_ra.RATIO_KEY = this_year.RATIO_KEY
+		left join (
+					select RATIO_KEY
+					,CASE WHEN sum(DENOMINATOR1) = 0 THEN 0 ELSE decimal(dec(sum(NUMERATOR1),20,2)/sum(DENOMINATOR1), 9,2) END as last_year_ratio
+					from FN_FINANCIAL_RATIO_RESULT
+					left join DIM_DATE on DIM_DATE.DATE_KEY = FN_FINANCIAL_RATIO_RESULT.MONTH_KEY
+					left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_FINANCIAL_RATIO_RESULT.DEPARTMENT_KEY
+					where (RATIO_KEY in ('8','9')) 
+					and (DIM_DATE.FISCAL_YEAR = paramFnYear-1)
+					and (DIM_DATE.FISCAL_MONTH_NO <= '12')
+					and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+					and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+					and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+					group by RATIO_NAME,RATIO_KEY,RATIO_GROUPNAME
+		) last_year  on fn_ra.RATIO_KEY = last_year.RATIO_KEY
+		left join (
+					select RATIO_KEY
+					,CASE WHEN sum(DENOMINATOR1) = 0 THEN 0 ELSE decimal(dec(sum(NUMERATOR1),20,2)/sum(DENOMINATOR1), 9,2) END as last_two_year_ratio
+					from FN_FINANCIAL_RATIO_RESULT
+					left join DIM_DATE on DIM_DATE.DATE_KEY = FN_FINANCIAL_RATIO_RESULT.MONTH_KEY
+					left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_FINANCIAL_RATIO_RESULT.DEPARTMENT_KEY
+					where (RATIO_KEY in ('8','9')) 
+					and (DIM_DATE.FISCAL_YEAR = paramFnYear-2)
+					and (DIM_DATE.FISCAL_MONTH_NO <= '12')
+					and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+					and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+					and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+					group by RATIO_NAME,RATIO_KEY,RATIO_GROUPNAME
+		) last_two_year  on fn_ra.RATIO_KEY = last_two_year.RATIO_KEY
+        )kmutt
+        order by RATIO_KEY
+		
+	;
+
+    OPEN result_set_1;
+END
+
+
+

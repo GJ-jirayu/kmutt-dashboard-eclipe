@@ -1,0 +1,51 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link class="style" href="../../Css/Employee/cp_all_employee_by_inbound_outbound.css" rel="stylesheet" type="text/css">
+
+<style>
+		#Chart_emp_by_in_out_year{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+		#Chart_emp_by_in_out_fac{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+	
+	.jqplot-yaxis-tick{
+		color:#000000;
+	}
+</style>
+
+<script type="text/javascript"> $(".Year").html($("#embemp_paramYear").val()) ;</script>
+<script type="text/javascript"> $(".YearSub").html($("#embemp_paramSizeList").val()) ;</script>
+
+	<div id = "main2">
+		<div id = "topContent2">
+			<div class = "panel2">
+				<div class = "panelTitleChart2">
+					จำนวนบุคลากร Inbound / Outbond ย้อนหลัง <label class="YearSub"></label> ปี <br/>
+ 					(คลิกที่แต่ละปีเพื่อดูรายละเอียดในระดับหน่วยงาน)
+
+				</div>
+				<br/><br/>
+				<div id = "Chart_emp_by_in_out_year" class = "chart"> 
+				</div>
+			</div>
+			<div class="panel2">
+				<div class = "panelTitleChart2">
+					จำนวนบุคลากร Inbound / Outbond <br/> 
+					จำแนกตามหน่วยงาน ปี <label class="Year"></label>
+				</div>
+				<br/><br/>
+				<div id = "Chart_emp_by_in_out_fac" class = "chart">
+				</div>
+			</div>
+		</div>	
+		<br style = "clear:both">
+	</div>

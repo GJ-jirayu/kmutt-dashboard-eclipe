@@ -1,0 +1,33 @@
+#main3{
+	color:#000000;
+	font:14px Tahoma;
+	/*border:1px solid red;*/
+}
+
+#topContent3{
+	/*width:950px;*/
+	height:auto;
+	margin-left:auto;
+	margin-right:auto;	
+	/*border:1px solid yellow;*/
+}
+
+#topContent3 .panel3{
+	float:left;
+	width:560px;
+	height:440px;
+	background:#FFFFE6;
+	margin-left:10px;
+	border:1px solid #FFA840;
+	border-radius: 5px;
+}
+
+#topContent3 .panel3 .panelTitleChart3{
+	text-align:center;
+	font-weight:bold;
+	color:white;
+	padding:5px;
+	background:#FFA840;
+	border-color:#FFA840;
+	border-width:4px;
+}

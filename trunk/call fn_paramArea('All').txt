@@ -1,0 +1,28 @@
+CREATE PROCEDURE fn_paramArea(IN paramFnArea VARCHAR(256))
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+		select AREA_CODE
+		,AREA_NAME
+		from
+		(
+		SELECT AREA_CODE as AREA_CODE
+		,AREA_NAME
+		,'1' as nos
+		FROM FN_DIM_DEPARTMENT
+		where DEPARTMENT_KEY != 1
+		group by AREA_CODE,AREA_NAME
+
+		union
+						
+		SELECT 'All' as AREA_CODE
+		,'รวมทุกพื้นที่' as AREA_NAME
+		,'2' as nos
+		from sysibm.sysdummy1
+		)area
+		where (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+		order by nos,AREA_CODE
+	;
+        OPEN  result_set_1;
+END

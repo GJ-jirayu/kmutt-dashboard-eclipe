@@ -1,0 +1,32 @@
+CREATE PROCEDURE emp_paramEmpTypeGroup() 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+				
+	select EMPTYPEGROUP
+,EMPTYPEGROUPNAME
+from
+(
+        SELECT '111' as EMPTYPEGROUP
+        ,'ข้าราชการ' as EMPTYPEGROUPNAME
+        from sysibm.sysdummy1
+        union
+        SELECT '212' as EMPTYPEGROUP
+        ,'พนักงาน' as EMPTYPEGROUPNAME
+        from sysibm.sysdummy1
+        union
+        SELECT '623' as EMPTYPEGROUP
+        ,'พนักงานฯลักษณะพิเศษ' as EMPTYPEGROUPNAME
+        from sysibm.sysdummy1
+        union
+        SELECT '634' as EMPTYPEGROUP
+        ,'บุคลากรนิติบุคคลอื่น' as EMPTYPEGROUPNAME
+        from sysibm.sysdummy1
+)kmutt
+order by EMPTYPEGROUP
+				
+	;
+		
+    OPEN result_set_1;
+END

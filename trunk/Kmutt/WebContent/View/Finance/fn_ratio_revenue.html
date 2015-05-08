@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link class="style" href="../../Css/Finance/fn_ratio_revenue.css" rel="stylesheet" type="text/css">
+
+<style>
+		#Chart_fn_ratio_revenue{
+		width:690px;
+		height:290px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+		#Chart_fn_ratio_revenue_fac{
+		width:690px;
+		height:260px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+		#Chart_fn_ratio_revenue_fac_year{
+		width:690px;
+		height:260px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+		#Chart_fn_ratio_revenue_dep{
+		width:690px;
+		height:260px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+		#Chart_fn_ratio_revenue_dep_year{
+		width:690px;
+		height:260px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+
+</style>
+
+</head>
+
+<script type="text/javascript"> $(".Year").html($("#embfn_paramYear").val()) ;</script>
+<script type="text/javascript"> $(".Org").html($("#embfn_paramOrg").val()) ;</script>
+<script type="text/javascript"> $(".Dep").html($("#embfn_paramDep").val()) ;</script>
+
+<body>
+	<div id="main">
+		<div id = "head">
+			<div id = "headChart">
+				<div id = "headTitleChart">
+					สัดส่วน งบดำเนินการจากรัฐ : ค่าเล่าเรียน : รายรับจากงานวิจัย บริการและอื่น เปรียบเทียบแผนผล <br/>
+					<label class="Org"></label> <label class="Dep"></label><br/> 
+					ปีงบประมาณ <label class="Year"></label>
+				</div>
+				<div id = "Chart_fn_ratio_revenue_unit" class ="unit">หน่วย : ล้านบาท</div>
+				<div id = "Chart_fn_ratio_revenue" class = "chart"></div>
+				<label class = "remart"></label>
+			</div>
+		</div>
+		
+		<div id = "detail">
+			<div class = "detailChartfac">
+				<div class = "detailTitleChartfac">
+					งบดำเนินการจากรัฐ : ค่าเล่าเรียน : รายรับจากงานวิจัย บริการและอื่น <br/> 
+					<label class="Org"></label><br/>
+					 ปีงบประมาณ <label class="Year"></label>
+				</div>
+				<div id = "Chart_fn_ratio_revenue_fac_unit" class ="unit">หน่วย : ล้านบาท</div>
+				<div id = "Chart_fn_ratio_revenue_fac" class = "chart"></div>
+				<label class = "remart"></label>
+			</div>
+			<div class = "detailChartfac">
+				<div class = "detailTitleChartfac">
+					งบดำเนินการจากรัฐ : ค่าเล่าเรียน : รายรับจากงานวิจัย บริการและอื่น เปรียบเทียบแผนผล <br/> 
+					<label class="Org"></label><br/> 
+					ปีงบประมาณ <label class="Year"></label> และย้อนหลัง 2 ปี
+				</div>
+				<div id = "Chart_fn_ratio_revenue_fac_year_unit" class ="unit">&nbsp</div>
+				<div id = "Chart_fn_ratio_revenue_fac_year" class = "chart"></div>
+				<label class = "remart"></label>
+			</div>
+			<div class = "detailChartdep">
+				<div class = "detailTitleChartdep">
+					งบดำเนินการจากรัฐ : ค่าเล่าเรียน : รายรับจากงานวิจัย บริการและอื่น<br/> 
+					<label class="Org"></label> <label class="Dep"></label> <br/>
+					ปีงบประมาณ <label class="Year"></label>
+				</div>
+				<div id = "Chart_fn_ratio_revenue_dep_unit" class ="unit">หน่วย : ล้านบาท</div>
+				<div id = "Chart_fn_ratio_revenue_dep" class = "chart"></div>
+				<label class = "remart"></label>
+			</div>
+			<div class = "detailChartdep">
+				<div class = "detailTitleChartdep">
+					งบดำเนินการจากรัฐ : ค่าเล่าเรียน : รายรับจากงานวิจัย บริการและอื่น เปรียบเทียบแผนผล<br/> 
+					<label class="Org"></label> <label class="Dep"></label><br/> 
+					ปีงบประมาณ <label class="Year"></label> และย้อนหลัง 2 ปี
+				</div>
+				<div id = "Chart_fn_ratio_revenue_dep_year_unit" class ="unit">&nbsp</div>
+				<div id = "Chart_fn_ratio_revenue_dep_year" class = "chart"></div>
+				<label class = "remart"></label>
+			</div>
+			<br style="clear:both">
+		</div>
+	</div>
+</body>
+</html>

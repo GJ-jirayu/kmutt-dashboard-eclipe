@@ -1,0 +1,109 @@
+#main{
+	/*border:1px solid #cccccc;*/
+}
+
+#main #headcost{
+	
+	border-radius: 5px;
+	/*border:1px solid red;*/
+}
+
+#main #headcost .cost{
+	/*border:0.5px solid red;*/
+	float:left;
+}
+
+#headcost .cost .headChartcost{
+	border:1px solid #99ccff;
+	background:#fcfdfe;
+	width:709px;
+	height:480px;
+	margin-left:5px;
+	margin-right:5px;
+	margin-top:10px;
+	margin-bottom:10px;
+	border-radius: 5px;
+
+}
+
+#headcost .cost .headTitleChartcost{
+	text-align:center;
+	font-weight:bold;
+	padding:10px;
+	margin-bottom:5px;
+	border:1px solid #ffffff;
+	background:#008ec3;
+	color:#ffffff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.detailChartfaccost{
+	border:1px solid #99ccff;
+	background:#fcfdfe;
+	margin:5px;
+	height:420px;
+	width:709px;
+	border-radius: 5px;
+}
+
+.detailTitleChartfaccost{
+	text-align:center;
+	font-weight:bold;
+	padding:10px;
+	margin-bottom:50px;
+	border:1px solid #ffffff;
+	background:#008ec3;
+	color:#ffffff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.detailChartdepexpcost{
+	border:1px solid #99ccff;
+	background:#fcfdfe;
+	margin:5px;
+	height:420px;
+	width:709px;
+	border-radius: 5px;
+}
+
+.detailChartdepreccost{
+	border:1px solid #99ccff;
+	background:#fcfdfe;
+	margin:5px;
+	height:420px;
+	width:709px;
+	border-radius: 5px;
+}
+
+.detailTitleChartdepcost{
+	text-align:center;
+	font-weight:bold;
+	padding:10px;
+	margin-bottom:50px;
+	border:1px solid #ffffff;
+	background:#008ec3;
+	color:#ffffff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.fn_ratio_cost{
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.fn_ratio_cost_text{
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	font:14px Tahoma ;
+}
+
+.unit{
+	font:12px Tahoma ;
+	width:690px;
+	text-align:right;
+}

@@ -1,0 +1,61 @@
+<link class="style" href="../../Css/Employee/cp_all_employee_by_level.css" rel="stylesheet" type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<style>
+	
+	#Chart_emp_by_lv_total{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+	#Chart_emp_by_lv_age{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+
+</style>
+
+ <script src="../../Controller/Employee/cp_all_employee_by_level_barline.js"> </script> 
+
+<script type="text/javascript"> $(".Year").html($("#embparamYearList").val()) ;</script>
+<div id = "main5">
+	<div id = "topContent5">
+		<div id="tabs5">
+				<ul>
+					<li><a href="#tabs8-1">กราฟแท่ง</a></li>
+					<li><a href="#tabs8-2">กราฟเส้น</a></li>
+				</ul>
+			<div id="tabs8-1"></div>
+			<div id="tabs8-2"></div>
+		</div>
+		
+	</div>
+</div>
+
+<div id = "main2">
+		<div id = "topContent2">
+			<div class = "panel2">
+				<div class = "panelTitleChart2">
+					จำนวน<label class="typegroup"></label> จำแนกตามระดับ
+				</div>
+				<br/><br/>
+				<div id = "Chart_emp_by_lv_total" class = "chart"> 
+				</div>
+			</div>
+			<div class="panel2">
+				<div class = "panelTitleChart2">
+					จำนวน<label class="typegroup"></label> จำแนกตามอายุเฉลี่ย
+				</div>
+				<br/><br/>
+				<div id = "Chart_emp_by_lv_age" class = "chart">
+				</div>
+			</div>
+		</div>	
+		<br style = "clear:both">
+	</div>

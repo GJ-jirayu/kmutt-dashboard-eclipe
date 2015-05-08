@@ -1,0 +1,23 @@
+CREATE PROCEDURE p_new_student_by_school_color() 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+
+select COLOR_CODE
+,COLOR_GROUP
+from
+(SELECT COLOR_KEY
+,COLOR_CODE
+,COLOR_GROUP
+FROM COLOR
+union
+select '5' as COLOR_KEY
+,'#808080' as COLOR_CODE
+,'ไม่มีนักศึกษาใหม่' as COLOR_GROUP
+from sysibm.sysdummy1
+)gj
+order by COLOR_KEY;
+
+    OPEN result_set_1;
+END

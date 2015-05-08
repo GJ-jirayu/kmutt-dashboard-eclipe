@@ -1,0 +1,123 @@
+CREATE PROCEDURE fn_cost_ratio_dep_b_rec(IN paramFnYear VARCHAR(256),IN paramFnOrg VARCHAR(256),IN paramFnDep VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+		
+		
+		select FISCAL_YEAR
+		,TypeItemGroup
+		,DECIMAL(AMOUNT/1000000,20,2)
+		from
+		(        
+				
+				select FISCAL_YEAR
+				,TypeItemGroup
+				,AMOUNT
+				,nos
+				from
+				(
+						select FISCAL_YEAR
+						,TypeItemGroup
+						,AMOUNT
+						,'3' as nos
+						from
+						(
+								SELECT FISCAL_YEAR
+								, 'แผน' || ITEM_GROUP_NAME as TypeItemGroup
+								, sum(BUDGET_AMOUNT) as AMOUNT
+								FROM FN_YEARLY_DEPARTMENT
+								left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+								left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+								where FN_YEARLY_DEPARTMENT.TEMPLATE_CODE = '10'
+								and LEVEL_CODE = '1'
+								and LEVEL_LINE = '2'
+								and (FISCAL_YEAR between (paramFnYear)-2 and (paramFnYear))
+								and (FN_DIM_DEPARTMENT.ORGENIZATION_CODE = (paramFnOrg))
+								and (FN_DIM_DEPARTMENT.DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+								group by FISCAL_YEAR,ITEM_GROUP_NAME
+						)kmutt
+								
+						union
+								
+						select FISCAL_YEAR
+						,TypeItemGroup
+						,AMOUNT
+						,'4' as nos
+						from
+						(
+								SELECT FISCAL_YEAR
+								, 'ผล' || ITEM_GROUP_NAME as TypeItemGroup
+								, sum(ACTUAL_AMOUNT) as AMOUNT
+								FROM FN_YEARLY_DEPARTMENT
+								left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+								left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+								where FN_YEARLY_DEPARTMENT.TEMPLATE_CODE = '10'
+								and LEVEL_CODE = '1'
+								and LEVEL_LINE = '2'
+								and (FISCAL_YEAR between (paramFnYear)-2 and (paramFnYear))
+								and (FN_DIM_DEPARTMENT.ORGENIZATION_CODE = (paramFnOrg))
+								and (FN_DIM_DEPARTMENT.DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+								group by FISCAL_YEAR,ITEM_GROUP_NAME
+						)kmutt
+				)kmu
+				
+				union
+				
+				select FISCAL_YEAR
+				,TypeItemGroup
+				,AMOUNT
+				,nos
+				from
+				(
+						select FISCAL_YEAR
+						,TypeItemGroup
+						,AMOUNT
+						,'5' as nos
+						from
+						(
+								SELECT FISCAL_YEAR
+								, 'แผนค่าใช้จ่ายดำเนินการ'  as TypeItemGroup
+								, sum(BUDGET_AMOUNT) as AMOUNT
+								FROM FN_YEARLY_DEPARTMENT
+								left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+								left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+								where FN_YEARLY_DEPARTMENT.TEMPLATE_CODE = '10'
+								and LEVEL_CODE = '1'
+								and LEVEL_LINE in ('2','3')
+								and (FISCAL_YEAR between (paramFnYear)-2 and (paramFnYear))
+								and (FN_DIM_DEPARTMENT.ORGENIZATION_CODE = (paramFnOrg))
+								and (FN_DIM_DEPARTMENT.DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+								group by FISCAL_YEAR
+						)kmutt
+								
+						union
+								
+						select FISCAL_YEAR
+						,TypeItemGroup
+						,AMOUNT
+						,'6' as nos
+						from
+						(
+								SELECT FISCAL_YEAR
+								, 'ผลค่าใช้จ่ายดำเนินการ'  as TypeItemGroup
+								, sum(ACTUAL_AMOUNT) as AMOUNT
+								FROM FN_YEARLY_DEPARTMENT
+								left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+								left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+								where FN_YEARLY_DEPARTMENT.TEMPLATE_CODE = '10'
+								and LEVEL_CODE = '1'
+								and LEVEL_LINE in ('2','3')
+								and (FISCAL_YEAR between (paramFnYear)-2 and (paramFnYear))
+								and (FN_DIM_DEPARTMENT.ORGENIZATION_CODE = (paramFnOrg))
+								and (FN_DIM_DEPARTMENT.DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+								group by FISCAL_YEAR
+						)kmutt
+				)kmu
+		)gj
+		order by nos ,FISCAL_YEAR
+		
+	;        	
+	
+    OPEN  result_set_1;
+END

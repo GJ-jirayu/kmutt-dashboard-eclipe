@@ -1,0 +1,26 @@
+CREATE PROCEDURE p_teacher_per_ftes_by_year(IN paramYEAR INTEGER,IN paramSEMESTER VARCHAR(256),IN paramYEARSUB VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+	
+select ACADEMIC_YEAR
+,teacher
+,CASE WHEN NO_OF_TEACHER != 0 THEN no_of_student/NO_OF_TEACHER ELSE 0 END AS test
+from
+(
+select DIM_SEMESTER.ACADEMIC_YEAR
+,'สัดส่วนอาจารย์ประจำต่อ FTES' as teacher
+,sum(no_of_student_ftes) as no_of_student
+,sum(NO_OF_TEACHER) as NO_OF_TEACHER
+from fact_teacher_student 
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_teacher_student.SEMESTER_KEY
+where (DIM_SEMESTER.ACADEMIC_YEAR between (paramYEAR)-(paramYEARSUB)+(1) and (paramYEAR))
+and (DIM_SEMESTER.SEMESTER_CODE in (paramSEMESTER) or 'All' in (paramSEMESTER))
+group by DIM_SEMESTER.ACADEMIC_YEAR 
+)gj
+order by teacher,ACADEMIC_YEAR
+;
+	
+    OPEN result_set_1;
+END

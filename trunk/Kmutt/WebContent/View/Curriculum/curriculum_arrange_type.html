@@ -1,0 +1,47 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link class="style" href="../../Css/Curriculum/curriculum_arrange_type.css" rel="stylesheet" type="text/css">
+
+<style>
+		#Chart_curriculum_arrange_type_by_year{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+		#Chart_curriculum_arrange_type_by_field{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+</style>
+
+
+<script type="text/javascript"> $(".Year").html($("#embparamYearList").val()) ;</script>
+
+	<div id = "main1">
+		<div id = "topContent1">
+			<div class = "panel1">
+				<div class = "panelTitleChart1">
+					จำนวนสาขาวิชาที่เปิดสอน ปีการศึกษา <label class="Year"></label> <br/> 
+					จำแนกตามลักษณะการจัดหลักสูตร
+				</div>
+				<br/><br/>
+				<div id = "Chart_curriculum_arrange_type_by_year" class = "chart"> 
+				</div>
+			</div>
+			<div class="panel1">
+				<div class = "panelTitleChart1">
+					ร้อยละของจำนวนสาขาวิชาที่เปิดสอน ปีการศึกษา <label class="Year"></label><br/>
+					จำแนกตามลักษณะการจัดหลักสูตรเป็นรายคณะ
+
+				</div>
+				<br/><br/>
+				<div id = "Chart_curriculum_arrange_type_by_field" class = "chart">
+				</div>
+			</div>
+		</div>	
+		<br style = "clear:both">
+	</div>

@@ -1,0 +1,68 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link class="style" href="../../Css/Qraduate/p_graduate_by_education_level.css" rel="stylesheet" type="text/css">
+
+<style>
+		#Chart_p_graduate_by_faculty_and_education_level{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+		#Chart_p_graduate_by_faculty{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+	margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+		#Chart_p_graduate_by_year_and_education_level{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+	margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+</style>
+
+
+<script type="text/javascript"> $(".Year").html($("#embparamYearList").val()) ;</script>
+
+
+<script type="text/javascript"> $(".YearSub").html($("#embparamYearSubList").val()) ;</script>
+
+<div id = "main1">
+
+		<div id = "topContent1">
+		
+			<div class="panel1">
+				<div class = "panelTitleChart1">
+					จำนวนผู้สำเร็จการศึกษา ย้อนหลัง <label class="YearSub"></label> ปี<br/>
+					(คลิกที่แต่ละปีเพื่อดูรายละเอียดระดับคณะ)
+				</div>
+				<br/><br/>
+				 <div id = "Chart_p_graduate_by_year_and_education_level" class = "chart"></div>
+			</div>
+			
+			<div class = "panel1">
+				<div class = "panelTitleChart1">
+					จำนวนและร้อยละของผู้สำเร็จการศึกษา  ปีการศึกษา <label class="Year"></label><br/>
+					จำแนกเป็นรายคณะ
+					
+				</div> 
+				<br/><br/>
+				 <div id = "Chart_p_graduate_by_faculty_and_education_level" class = "chart"></div>
+			</div>
+			
+		</div>	
+		<div id = "topCon1">
+			<div class = "panel1">
+				<div class = "panelTitleChart1">
+					ร้อยละของผู้สำเร็จการศึกษา ปีการศึกษา <label class="Year"></label><br/>
+					จำแนกเป็นรายคณะ
+				</div>
+				 <div id = "Chart_p_graduate_by_faculty" class = "chart"></div>
+			</div>
+		</div>	
+	<br style = "clear:both">
+</div>

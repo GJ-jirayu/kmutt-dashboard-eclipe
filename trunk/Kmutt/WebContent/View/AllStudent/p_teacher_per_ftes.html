@@ -1,0 +1,68 @@
+<link class="style" href="../../Css/AllStudent/p_teacher_per_ftes.css" rel="stylesheet" type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<style>
+		#Chart_p_teacher_per_ftes_by_year{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+		#Chart_p_teacher_per_ftes_by_faculty{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+	
+	#Chart_p_teacher_ftes_by_year{
+		width:700px;
+		height:auto;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+</style>
+
+
+<script type="text/javascript"> $(".Year").html($("#embparamYearList").val()) ;</script>
+
+
+<script type="text/javascript"> $(".YearSub").html($("#embparamYearSubList").val()) ;</script>
+
+	<div id = "main5">
+		<div id = "topContent5">
+			<div class = "panel5">
+				<div class = "panelTitleChart5">
+					สัดส่วนอาจารย์ต่อนักศึกษาเต็มเวลา (FTES) ย้อนหลัง <label class="YearSub"></label> ปี <br/>
+					(คลิกที่แต่ละปีเพื่อดูรายละเอียดระดับคณะ)
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_teacher_per_ftes_by_year" class = "chart"> 
+				</div>
+			</div>
+			
+			<div class="panel5">
+				<div class = "panelTitleChart5">
+					สัดส่วนอาจารย์ต่อนักศึกษาเต็มเวลา (FTES) เป็นรายคณะ <br/>
+					 ปีการศึกษา  <label class="Year"></label> 
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_teacher_per_ftes_by_faculty" class = "chart">
+				</div>
+			</div>
+		</div>	
+		
+		<div id = "topCon5">
+			<div class="panel5">
+				<div class = "panelTitleChart5">
+					สัดส่วนอาจารย์ต่อนักศึกษาเต็มเวลา (FTES) ย้อนหลัง <label class="YearSub"></label> ปี 
+				</div>
+				<div id = "Chart_p_teacher_ftes_by_year" class = "chart">
+				</div>
+			</div>
+		</div>
+		<br style = "clear:both">
+	</div>

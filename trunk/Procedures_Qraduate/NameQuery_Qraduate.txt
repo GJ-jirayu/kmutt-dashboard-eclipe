@@ -1,0 +1,26 @@
+--  ผู้สำเร็จ_กราฟ 1.1 (กราฟแท่ง) p_graduate_by_faculty_and_education_level (ให้เปลี่ยนมาใช้ field education_level แทน education_level_group)
+--  ผู้สำเร็จ_กราฟ 1.2(กราฟวงกลม) p_graduate_by_faculty
+--  ผู้สำเร็จ_กราฟ 1.3 (กราฟเส้น) p_graduate_by_year_and_education_level
+--  ผู้สำเร็จ_กราฟ 2.1 (กราฟแท่งเส้น) p_graduate_vs_plan_by_year
+--  ผู้สำเร็จ_กราฟ 2.2 (กราฟแท่งเส้น) p_graduate_by_study_time
+--  ผู้สำเร็จ_กราฟ 2.3 (กราฟแท่งเส้น) p_graduate_vs_plan_by_faculty
+--  ผู้สำเร็จ_กราฟ 3.1 (กราฟเส้น) p_graduate_work_by_year ต้อง sum(no_of_employ), sum(no_of_unemploy), sum(no_of_study) ด้วยครับ
+--  ผู้สำเร็จ_กราฟ 3.2 (กราฟเส้น) p_graduate_work_by_faculty
+--  ผู้สำเร็จ_กราฟ 3.2 (กราฟแท่ง)  p_employer_survey_by_faculty
+
+1.1 call p_graduate_by_faculty_and_education_level(2556,'1','N','001','3')
+1.2 call p_graduate_by_faculty(2556,'1','N','001')
+1.3 call p_graduate_by_year_and_education_level(2556,'1','N','001')
+2.1 call p_graduate_vs_plan_by_year(2556,'1','N','001','3')
+2.2 call p_graduate_by_study_time(2556,'1','N','001')
+2.3 call p_graduate_vs_plan_by_faculty(2556,'1','N','001')
+3.1 call p_graduate_work_by_years(2556,'N','001','3')
+3.2 call p_graduate_work_by_faculty(2556,'N','001')
+3.3 call p_employer_survey_by_faculty(2556,'001')
+
+
+
+where (DIM_SEMESTER.ACADEMIC_YEAR between (paramYEAR)-(paramYEARSUB) and (paramYEAR))
+and (DIM_SEMESTER.SEMESTER_CODE in (paramSEMESTER) or 'All' in (paramSEMESTER))
+and (DIM_FOREIGN_FLAG.FOREIGN_FLAG in (paramFOREIGN) or 'All' in (paramFOREIGN))
+and (DIM_PROGRAM.EDUCATION_LEVEL_CODE in (paramEDU) or 'All' in (paramEDU))

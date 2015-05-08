@@ -1,0 +1,24 @@
+CREATE PROCEDURE emp_paramTypeYear() 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+		
+SELECT TYPE_YEAR_FIELD
+,TYPE_YEAR_NAME
+FROM(
+SELECT 'ACADAMIC_YEAR' as TYPE_YEAR_FIELD
+,'ปีการศึกษา' as TYPE_YEAR_NAME
+from sysibm.sysdummy1
+union
+SELECT 'FISCAL_YEAR' as TYPE_YEAR_FIELD
+,'ปีงบประมาณ' as TYPE_YEAR_NAME
+from sysibm.sysdummy1
+union
+SELECT 'CALENDAR_YEAR' as TYPE_YEAR_FIELD
+,'ปีปฏิทิน' as TYPE_YEAR_NAME
+from sysibm.sysdummy1
+)ParamYearType;
+
+    OPEN result_set_1;
+END

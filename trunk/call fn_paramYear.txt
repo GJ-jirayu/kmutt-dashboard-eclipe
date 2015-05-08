@@ -1,0 +1,15 @@
+CREATE PROCEDURE fn_paramYear() 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+		
+	SELECT FISCAL_YEAR
+	FROM DIM_DATE
+	where DATE_KEY != '1'
+	group by FISCAL_YEAR
+	order by FISCAL_YEAR Desc
+
+	;
+    OPEN result_set_1;
+END

@@ -1,0 +1,50 @@
+CREATE PROCEDURE p_teacher_ftes_by_year(IN paramYEAR INTEGER,IN paramSEMESTER VARCHAR(256),IN paramYEARSUB VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+	
+select ACADEMIC_YEAR
+,sum(TOTEL_FTES) as TOTEL_FTES
+,sum(TOTEL_teacher) as TOTEL_teacher
+,sum(TOTEL_teacherFTES) as TOTEL_teacherFTES
+from
+(
+select DIM_SEMESTER.ACADEMIC_YEAR
+,sum(no_of_student_ftes) as TOTEL_FTES
+,'0' as TOTEL_teacher
+,'0' as TOTEL_teacherFTES
+from fact_teacher_student 
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_teacher_student.SEMESTER_KEY
+where (DIM_SEMESTER.ACADEMIC_YEAR between (paramYEAR)-(paramYEARSUB)+(1) and (paramYEAR))
+and (DIM_SEMESTER.SEMESTER_CODE in (paramSEMESTER) or 'All' in (paramSEMESTER))
+group by DIM_SEMESTER.ACADEMIC_YEAR
+
+union
+
+select DIM_SEMESTER.ACADEMIC_YEAR
+,'0' as TOTEL_FTES
+,sum(no_of_teacher) as TOTEL_FTES
+,'0' as TOTEL_teacherFTES
+from fact_teacher_student 
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_teacher_student.SEMESTER_KEY
+where (DIM_SEMESTER.ACADEMIC_YEAR between (paramYEAR)-(paramYEARSUB)+(1) and (paramYEAR))
+and (DIM_SEMESTER.SEMESTER_CODE in (paramSEMESTER) or 'All' in (paramSEMESTER))
+group by DIM_SEMESTER.ACADEMIC_YEAR
+
+union
+select DIM_SEMESTER.ACADEMIC_YEAR
+,'0' as TOTEL_FTES
+,'0' as TOTEL_FTES
+,CASE WHEN sum(no_of_teacher) != 0 THEN sum(no_of_student_ftes)/sum(no_of_teacher) ELSE 0 END AS TOTEL_teacherFTES
+from fact_teacher_student 
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_teacher_student.SEMESTER_KEY
+where (DIM_SEMESTER.ACADEMIC_YEAR between (paramYEAR)-(paramYEARSUB)+(1) and (paramYEAR))
+and (DIM_SEMESTER.SEMESTER_CODE in (paramSEMESTER) or 'All' in (paramSEMESTER))
+group by DIM_SEMESTER.ACADEMIC_YEAR
+)gj
+group by ACADEMIC_YEAR
+order by ACADEMIC_YEAR;
+	
+    OPEN result_set_1;
+END

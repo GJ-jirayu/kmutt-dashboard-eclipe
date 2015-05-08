@@ -1,0 +1,41 @@
+CREATE PROCEDURE fn_cash_flows (IN paramFnYear integer,IN paramFnMonth integer) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+
+		select rt.item_group_name
+		,rt.template_key
+		,LEVEL_CODE
+		,PARENT 
+		,coalesce(thisMonthBalance,0) + coalesce(lastYearBalance,0)
+		,coalesce(lastYearBalance,0) - coalesce(lastToYearBalance,0)
+		,LEVEL_LINE
+		from 
+		(select * from fn_dim_report_template where template_code = 2 ) rt
+		left join 
+		(
+				select template_key,sum(this_month_balance)/1000000 as thisMonthBalance
+				from fn_monthly_university f,dim_date d
+				where f.month_key = d.date_key and d.fiscal_year = paramFnYear and fiscal_month_no <= paramFnMonth and template_code = 2
+				group by f.template_key
+		) thismonth  on rt.template_key = thismonth.template_key
+		left join
+		(
+				select template_key,sum(this_month_balance)/1000000 as lastYearBalance
+				from fn_monthly_university f,dim_date d
+				where f.month_key = d.date_key and d.fiscal_year = paramFnYear-1 and fiscal_month_no <= 12 and template_code = 2
+				group by f.template_key
+		) lastyear  on rt.template_key = lastyear.template_key
+		left join
+		(
+				select template_key,sum(this_month_balance)/1000000 as lastToYearBalance
+				from fn_monthly_university f,dim_date d
+				where f.month_key = d.date_key and d.fiscal_year = paramFnYear-2 and fiscal_month_no <= 12 and template_code = 2
+				group by f.template_key
+		) lasttoyear  on rt.template_key = lasttoyear.template_key
+		order by key_chain
+		
+	;
+    OPEN result_set_1;
+END

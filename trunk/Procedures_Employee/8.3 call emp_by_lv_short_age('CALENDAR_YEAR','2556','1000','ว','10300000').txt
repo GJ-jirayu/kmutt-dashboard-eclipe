@@ -1,0 +1,24 @@
+CREATE PROCEDURE emp_by_lv_short_age(IN paramEmpTypeYear VARCHAR(256),IN paramEmpYear VARCHAR(256),IN paramEmpPos VARCHAR(256),IN paramEmpShort VARCHAR(256),IN paramEmpDep VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+
+	;               
+		
+	DECLARE result_set_2 CURSOR WITH RETURN TO CLIENT FOR
+	
+	;
+		
+    DECLARE result_set_3 CURSOR WITH RETURN TO CLIENT FOR
+		
+	;        	
+		
+     IF (paramEmpTypeYear) = 'CALENDAR_YEAR' THEN
+        OPEN  result_set_1;
+     ELSEIF(paramEmpTypeYear) = 'FISCAL_YEAR' THEN
+        OPEN  result_set_2;
+     ELSE
+        OPEN  result_set_3;
+     END IF;
+END

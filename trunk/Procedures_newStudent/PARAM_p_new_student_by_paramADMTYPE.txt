@@ -1,0 +1,33 @@
+CREATE PROCEDURE p_new_student_by_paramADMTYPE(IN paramADMTYPE VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+	
+select ADMISSION_TYPE_CODE
+,ADMISSION_TYPE_NAME
+from
+(
+SELECT distinct ADMISSION_TYPE_CODE 
+, concat('ประเภท ',ADMISSION_TYPE_NAME) as ADMISSION_TYPE_NAME
+FROM DIM_ADMISSION_TYPE
+where ADMISSION_TYPE_CODE not in ('N/A')
+
+union
+
+SELECT 'All' as ADMISSION_TYPE_CODE
+,'รวมทุกประเภท' as ADMISSION_TYPE_NAME
+from sysibm.sysdummy1
+
+union
+
+SELECT 'N/A' as ADMISSION_TYPE_CODE
+,'ไม่ได้ระบุประเภทการรับเข้า' as ADMISSION_TYPE_NAME
+from sysibm.sysdummy1
+
+)ADMISSION_TYPE
+where (ADMISSION_TYPE_CODE = (paramADMTYPE))
+;
+
+    OPEN result_set_1;
+END

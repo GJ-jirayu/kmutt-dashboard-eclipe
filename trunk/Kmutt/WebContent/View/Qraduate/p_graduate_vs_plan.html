@@ -1,0 +1,67 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link class="style" href="../../Css/Qraduate/p_graduate_vs_plan.css" rel="stylesheet" type="text/css">
+<style>
+		#Chart_p_graduate_vs_plan_by_year{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+	margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+	
+		#Chart_p_graduate_by_study_time{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+	margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+	
+		#Chart_p_graduate_vs_plan_by_faculty{
+		width:1120px;
+		height:350px;
+		margin-left:auto;
+	margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+</style>
+
+<script type="text/javascript"> $(".Year").html($("#embparamYearList").val()) ;</script>
+<script type="text/javascript"> $(".YearSub").html($("#embparamYearSubList").val()) ;</script>
+
+<div id = "main2">	
+		<div id = "topContent2">
+			<div class = "panel2">
+				<div class = "panelTitleChart2">
+				จำนวนผู้สำเร็จการศึกษาเปรียบเทียบกับแผน ย้อนหลัง <label class="YearSub"></label> ปี <br/>
+				(คลิกที่แต่ละปีเพื่อดูรายละเอียดในระดับคณะ)
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_graduate_vs_plan_by_year" class = "chart"> 
+				
+				</div>
+			</div>
+			<div class="panel2">
+				<div class = "panelTitleChart2">
+					จำนวนผู้สำเร็จการศึกษาตามเวลา /เกินเวลา <br/>
+					ปีการศึกษา <label class="Year"></label>				
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_graduate_by_study_time" class = "chart">
+				</div>
+			</div>
+		</div>	
+		
+		<div id = "topCon2">
+			<div class = "panel2">
+				<div class = "panelTitleChart2">
+					จำนวนผู้สำเร็จการศึกษา จำแนกตามคณะ ปีการศึกษา <label class="Year"></label>
+					<br/>
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_graduate_vs_plan_by_faculty" class = "chart"> 
+				</div>
+			</div>
+		</div>
+	<br style = "clear:both">
+</div>

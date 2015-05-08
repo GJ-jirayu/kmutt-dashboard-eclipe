@@ -1,0 +1,396 @@
+$(document).ready(function(){
+	
+	var addClassAsOfTabs = function(childNo){
+		$("div#tabs ul").each(function(){
+			$("li",this).removeClass("TabsActive");
+			$("li",this).eq(childNo).addClass("TabsActive");
+		});
+	};
+	
+	var option = new Array();
+	
+	$("#tabs5").tabs();
+	
+// -------------tabs-1.html-------------
+	$("a[href='#tabs-5']").on("click",function(){
+		//alert('show');
+		$(".ParamLeftSub").hide();
+		
+		$("#ParamYear").show();
+		$("#ParamSem").show();
+		$("#ParamEdu").show();
+		
+		addClassAsOfTabs(4);
+	$.ajax({
+		url : "p_new_student_by_school.html",
+		type:"get",
+		async:false,
+		datetype:"html",
+		success:function(data){
+			$("#tabs-5").html(data);
+			// option['mapType']="th_mill_en"; จังหวัด
+			// option['mapType']="th_mill_region_th"; ภาค
+			
+			
+			/*option['markerStyle']={
+                    initial: {
+                        fill: '#F8E23B',
+                        stroke: '#383f47'
+                      }
+                    };
+      option['markers']=[
+                  {latLng: [41.90, 12.45], name: 'Vatican City'},
+                  {latLng: [43.73, 7.41], name: 'Monaco'},
+                  {latLng: [-0.52, 166.93], name: 'Nauru'},
+                  {latLng: [-8.51, 179.21], name: 'Tuvalu'},
+                  {latLng: [43.93, 12.46], name: 'San Marino'},
+                  {latLng: [47.14, 9.52], name: 'Liechtenstein'},
+                  {latLng: [7.11, 171.06], name: 'Marshall Islands'},
+                  {latLng: [17.3, -62.73], name: 'Saint Kitts and Nevis'},
+                  {latLng: [3.2, 73.22], name: 'Maldives'},
+                  {latLng: [35.88, 14.5], name: 'Malta'},
+                  {latLng: [12.05, -61.75], name: 'Grenada'},
+                  {latLng: [13.16, -61.23], name: 'Saint Vincent and the Grenadines'},
+                  {latLng: [13.16, -59.55], name: 'Barbados'},
+                  {latLng: [17.11, -61.85], name: 'Antigua and Barbuda'},
+                  {latLng: [-4.61, 55.45], name: 'Seychelles'},
+                  {latLng: [7.35, 134.46], name: 'Palau'},
+                  {latLng: [42.5, 1.51], name: 'Andorra'},
+                  {latLng: [14.01, -60.98], name: 'Saint Lucia'},
+                  {latLng: [6.91, 158.18], name: 'Federated States of Micronesia'},
+                  {latLng: [1.3, 103.8], name: 'Singapore'},
+                  {latLng: [1.46, 173.03], name: 'Kiribati'},
+                  {latLng: [-21.13, -175.2], name: 'Tonga'},
+                  {latLng: [15.3, -61.38], name: 'Dominica'},
+                  {latLng: [-20.2, 57.5], name: 'Mauritius'},
+                  {latLng: [26.02, 50.55], name: 'Bahrain'},
+                  {latLng: [0.33, 6.73], name: 'São Tomé and Príncipe'}*/
+			}
+		});
+		//setTimeout(function(){
+		//	$("a[href='#tabs5-1']").trigger("click");
+		//},100);
+	});
+
+	$("a[href='#tabs5-1']").click(function(){	
+		$.ajax({
+			url : "p_new_student_by_school_region.html",
+			type:"get",
+			async:false,
+			datetype:"html",
+			success:function(data){
+				$("#tabs5-1").html(data);
+				$.ajax({
+					url: "../../Model/NewStudent/p_new_student_by_school_region.jsp",
+					type: "get",
+					dataType: "json",
+					data:{"paramYear":$("#embparamYearList").val(), "paramSemester":$("#embparamSemesterList").val(),"paramEduLevel":$("#embparamEducationList").val()},
+					success:function(data){	
+						//console.log(data);
+						 option=[];
+	                     option['mapType']="th_mill_region_th";
+	                     option['theme']=theme;
+	                     option['initial']="#808080";
+	                     option['selected']="#F4A582";
+	                     option['scale']="['#FFFF99', '#FF0000']";
+	                     option['pointLabelsColor']='white';
+	                     option['clickable']=true;
+						 map("Chart_p_new_student_by_school_region",data,option);
+						 
+						 var provinceRegion=new Array();
+						 
+						 provinceRegion["TH-1"]="TH-BK";
+			                provinceRegion["TH-60"]="TH-XC";
+			                provinceRegion["TH-24"]="TH-PM";
+			                provinceRegion["TH-29"]="TH-PM";
+			                provinceRegion["TH-33"]="TH-XC";
+			                provinceRegion["TH-72"]="TH-XC";
+			                provinceRegion["TH-52"]="TH-XC";
+			                provinceRegion["TH-65"]="TH-XC";
+			                provinceRegion["TH-10"]="TH-XC";
+			                provinceRegion["TH-64"]="TH-XC";
+			                provinceRegion["TH-9"]="TH-XE";
+			                provinceRegion["TH-50"]="TH-XE";
+			                provinceRegion["TH-7"]="TH-XE";
+			                provinceRegion["TH-16"]="TH-XE";
+			                provinceRegion["TH-8"]="TH-XE";
+			                provinceRegion["TH-31"]="TH-XE";
+			                provinceRegion["TH-18"]="TH-XE";
+			                provinceRegion["TH-63"]="TH-XE";
+			                provinceRegion["TH-21"]="TH-XNE";
+			                provinceRegion["TH-28"]="TH-XNE";
+			                provinceRegion["TH-69"]="TH-XNE";
+			                provinceRegion["TH-56"]="TH-XNE";
+			                provinceRegion["TH-76"]="TH-XNE";
+			                provinceRegion["TH-47"]="TH-XNE";
+			                provinceRegion["TH-11"]="TH-XNE";
+			                provinceRegion["TH-77"]="TH-XNE";
+			                provinceRegion["TH-27"]="TH-XNE";
+			                provinceRegion["TH-71"]="TH-XNE";
+			                provinceRegion["TH-6"]="TH-XNE";
+			                provinceRegion["TH-73"]="TH-XNE";
+			                provinceRegion["TH-55"]="TH-XNE";
+			                provinceRegion["TH-70"]="TH-XNE";
+			                provinceRegion["TH-43"]="TH-XNE";
+			                provinceRegion["TH-48"]="TH-XNE";
+			                provinceRegion["TH-4"]="TH-XNE";
+			                provinceRegion["TH-57"]="TH-XNE";
+			                provinceRegion["TH-20"]="TH-XNE";
+			                provinceRegion["TH-44"]="TH-XNE";
+			                provinceRegion["TH-14"]="TH-XN";
+			                provinceRegion["TH-54"]="TH-XN";
+			                provinceRegion["TH-53"]="TH-XN";
+			                provinceRegion["TH-75"]="TH-XN";
+			                provinceRegion["TH-40"]="TH-XN";
+			                provinceRegion["TH-26"]="TH-XN";
+			                provinceRegion["TH-41"]="TH-XN";
+			                provinceRegion["TH-13"]="TH-XN";
+			                provinceRegion["TH-45"]="TH-XN";
+			                provinceRegion["TH-23"]="TH-XN";
+			                provinceRegion["TH-74"]="TH-XN";
+			                provinceRegion["TH-5"]="TH-XN";
+			                provinceRegion["TH-17"]="TH-XN";
+			                provinceRegion["TH-66"]="TH-XN";
+			                provinceRegion["TH-37"]="TH-XN";
+			                provinceRegion["TH-36"]="TH-XN";
+			                provinceRegion["TH-39"]="TH-XN";
+			                provinceRegion["TH-51"]="TH-XW";
+			                provinceRegion["TH-3"]="TH-XW";
+			                provinceRegion["TH-67"]="TH-XW";
+			                provinceRegion["TH-19"]="TH-PM";
+			                provinceRegion["TH-62"]="TH-PM";
+			                provinceRegion["TH-61"]="TH-XW";
+			                provinceRegion["TH-38"]="TH-XW";
+			                provinceRegion["TH-30"]="TH-XW";
+			                provinceRegion["TH-22"]="TH-XS";
+			                provinceRegion["TH-2"]="TH-XS";
+			                provinceRegion["TH-34"]="TH-XS";
+			                provinceRegion["TH-42"]="TH-XS";
+			                provinceRegion["TH-68"]="TH-XS";
+			                provinceRegion["TH-49"]="TH-XS";
+			                provinceRegion["TH-12"]="TH-XS";
+			                provinceRegion["TH-58"]="TH-XS";
+			                provinceRegion["TH-59"]="TH-XS";
+			                provinceRegion["TH-15"]="TH-XS";
+			                provinceRegion["TH-35"]="TH-XS";
+			                provinceRegion["TH-32"]="TH-XS";
+			                provinceRegion["TH-46"]="TH-XS";
+			                provinceRegion["TH-25"]="TH-XS";
+			                //Map Province Region End
+			               //alert("test");
+			                
+			                $(".jvectormap-element").on("click",function(){
+			                    var provinceCode=$("#mapCode").text();
+			                        
+			                        //alert(provinceRegion[""+provinceCode+""]);
+			                        p_new_student_by_school_table_region(provinceRegion[""+provinceCode+""]);
+									p_new_student_by_school_region_head(provinceRegion[""+provinceCode+""]);
+									p_new_student_by_school_region_head_a(provinceRegion[""+provinceCode+""]);
+									p_new_student_by_school_region_head_b(provinceRegion[""+provinceCode+""]);
+			                });
+						 
+			               
+						}
+					});
+				
+				$.ajax({
+					url: "../../Model/NewStudent/p_new_student_by_school_edu.jsp",
+					type: "get",
+					dataType: "json",
+					data:{"paramEduLevel":$("#embparamEducationList").val()},
+					success:function(data){		
+						//console.log(data);
+						//alert(data);
+						$(".edu").html(data).val();
+						}
+					});
+				
+				$.ajax({
+					url: "../../Model/NewStudent/p_new_student_by_school_region_head_c.jsp",
+					type: "get",
+					dataType: "json",
+					data:{"paramYear":$("#embparamYearList").val(), "paramSemester":$("#embparamSemesterList").val(),"paramEduLevel":$("#embparamEducationList").val()},
+					success:function(data){		
+						//console.log(data);
+						//alert(data);
+						$("#total_new_student").html(data).val();
+						}
+					});
+				
+				var p_new_student_by_school_table_region = function(regionCode){
+				$.ajax({
+					url: "../../Model/NewStudent/p_new_student_by_school_table_region.jsp",
+					type: "get",
+					dataType: "json",
+					data:{"paramYear":$("#embparamYearList").val(), "paramSemester":$("#embparamSemesterList").val(),"paramEduLevel":$("#embparamEducationList").val(),"paramREG":regionCode},
+					success:function(data){		
+						//console.log(data);
+						 option=[];
+						 option['title']=["ลำดับ","โรงเรียน","Admission","รับตรง","กลุ่มเฉพาะ","เข้าศึกษากรณีพิเศษ","รวม"];
+						 option['contentType']=["","String","Number","Number","Number","Number","Number"];
+						 option['colsWidth']=["50px","120px","80px","50px","80px","140px","60px"];
+                         option['height']='473';
+                         option["runNumber"]=true;
+						 table("Chart_p_new_student_by_school_table_region",data,option);
+						}
+					});
+				};
+				p_new_student_by_school_table_region("All");
+					
+					
+				var p_new_student_by_school_region_head = function(regionCode){
+				$.ajax({
+				url: "../../Model/NewStudent/p_new_student_by_school_region_head.jsp",
+				type: "get",
+				dataType: "json",
+				data:{"paramYear":$("#embparamYearList").val(), "paramSemester":$("#embparamSemesterList").val(),"paramEduLevel":$("#embparamEducationList").val(),"paramREG":regionCode},
+				success:function(data){		
+					//console.log(data);
+					//alert(data);
+					$("#region").html(data).val();
+					}
+				});
+				};
+				p_new_student_by_school_region_head("All");
+				
+				var p_new_student_by_school_region_head_a = function(regionCode){
+				$.ajax({
+					url: "../../Model/NewStudent/p_new_student_by_school_region_head_a.jsp",
+					type: "get",
+					dataType: "json",
+					data:{"paramYear":$("#embparamYearList").val(), "paramSemester":$("#embparamSemesterList").val(),"paramEduLevel":$("#embparamEducationList").val(),"paramREG":regionCode},
+					success:function(data){		
+						//console.log(data);
+						//alert(data);
+						$("#region_total").html(data).val();
+						}
+					});
+				};
+				p_new_student_by_school_region_head_a("All");
+				
+				var p_new_student_by_school_region_head_b = function(regionCode){
+				$.ajax({
+					url: "../../Model/NewStudent/p_new_student_by_school_region_head_b.jsp",
+					type: "get",
+					dataType: "json",
+					data:{"paramYear":$("#embparamYearList").val(), "paramSemester":$("#embparamSemesterList").val(),"paramEduLevel":$("#embparamEducationList").val(),"paramREG":regionCode},
+					success:function(data){		
+						//console.log(data);
+						//alert(data);
+						$("#region_pa").html(data).val();
+						}
+					});
+				};
+				p_new_student_by_school_region_head_b("All");
+				
+				}
+			});
+		});
+	
+	$("a[href='#tabs5-2']").click(function(){
+		$.ajax({
+			url : "p_new_student_by_school_province.html",
+			type:"get",
+			async:false,
+			datetype:"html",
+			success:function(data){
+				$("#tabs5-2").html(data);
+				
+				$.ajax({
+					url: "../../Model/NewStudent/p_new_student_by_school.jsp",
+					type: "get",
+					dataType: "json",
+					data:{"paramYear":$("#embparamYearList").val(), "paramSemester":$("#embparamSemesterList").val(),"paramEduLevel":$("#embparamEducationList").val()},
+					success:function(data){					
+						 option=[];
+	                     option['mapType']="th_mill_en";
+	                     option['theme']=theme;
+	                     option['initial']="#808080";
+	                     option['selected']="#000000";
+	                     option['scale']="['#FFFF99', '#FF0000']";
+	                     option['pointLabelsColor']='white';
+	                     option['clickable']=true;
+						 map("Chart_p_new_student_by_school",data,option);
+						 
+						 $(".jvectormap-element").on("click",function(){
+						 
+                         //alert($("#mapCode").text());
+                         p_new_student_by_school_table_province($("#mapCode").text());
+						 p_new_student_by_school_province_head($("#mapCode").text());
+						 p_new_student_by_school_province_head_a($("#mapCode").text());
+						 p_new_student_by_school_province_head_b($("#mapCode").text());
+						 
+						});
+					}
+				});
+				
+				
+				var p_new_student_by_school_table_province = function(provinceCode){
+				$.ajax({
+					url: "../../Model/NewStudent/p_new_student_by_school_table_province.jsp",
+					type: "get",
+					dataType: "json",
+					data:{"paramYear":$("#embparamYearList").val(), "paramSemester":$("#embparamSemesterList").val(),"paramEduLevel":$("#embparamEducationList").val(),"paramProvince":provinceCode},
+					success:function(data){		
+						//console.log(data);
+						 option=[];
+						 option['title']=["ลำดับ","โรงเรียน","Admission","รับตรง","กลุ่มเฉพาะ","เข้าศึกษากรณีพิเศษ","รวม"];
+						 option['contentType']=["","String","Number","Number","Number","Number","Number"];
+						 option['colsWidth']=["50px","120px","80px","50px","80px","140px","60px"];
+                         option['height']='473';
+                         option["runNumber"]=true;
+						 table("Chart_p_new_student_by_school_table_province",data,option);
+						}
+					});
+				};
+				p_new_student_by_school_table_province("All");
+				
+				var p_new_student_by_school_province_head = function(provinceCode){
+				$.ajax({
+				url: "../../Model/NewStudent/p_new_student_by_school_province_head.jsp",
+				type: "get",
+				dataType: "json",
+				data:{"paramYear":$("#embparamYearList").val(), "paramSemester":$("#embparamSemesterList").val(),"paramEduLevel":$("#embparamEducationList").val(),"paramProvince":provinceCode},
+				success:function(data){		
+					//console.log(data);
+					//alert(data);
+					$("#province").html(data).val();
+					}
+				});
+				};
+				p_new_student_by_school_province_head("All");
+				
+				var p_new_student_by_school_province_head_a = function(provinceCode){
+				$.ajax({
+					url: "../../Model/NewStudent/p_new_student_by_school_province_head_a.jsp",
+					type: "get",
+					dataType: "json",
+					data:{"paramYear":$("#embparamYearList").val(), "paramSemester":$("#embparamSemesterList").val(),"paramEduLevel":$("#embparamEducationList").val(),"paramProvince":provinceCode},
+					success:function(data){		
+						//console.log(data);
+						//alert(data);
+						$("#province_total").html(data).val();
+						}
+					});
+				};
+				p_new_student_by_school_province_head_a("All");
+				
+				var p_new_student_by_school_province_head_b = function(provinceCode){
+				$.ajax({
+					url: "../../Model/NewStudent/p_new_student_by_school_province_head_b.jsp",
+					type: "get",
+					dataType: "json",
+					data:{"paramYear":$("#embparamYearList").val(), "paramSemester":$("#embparamSemesterList").val(),"paramEduLevel":$("#embparamEducationList").val(),"paramProvince":provinceCode},
+					success:function(data){		
+						//console.log(data);
+						//alert(data);
+						$("#province_pa").html(data).val();
+						}
+					});
+				};
+				p_new_student_by_school_province_head_b("All");
+				
+				}
+			});
+		});
+});

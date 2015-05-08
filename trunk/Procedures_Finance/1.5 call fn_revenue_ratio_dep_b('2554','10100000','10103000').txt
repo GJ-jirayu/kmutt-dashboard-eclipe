@@ -1,0 +1,201 @@
+CREATE PROCEDURE fn_revenue_ratio_dep_b(IN paramFnYear VARCHAR(256),IN paramFnOrg VARCHAR(256),IN paramFnDep VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+		
+		select FISCAL_YEAR
+		,TypeItemGroup
+		,AMOUNT
+		from
+		(        
+				select FISCAL_YEAR
+				,TypeItemGroup
+				,AMOUNT
+				,nos
+				,DEPARTMENT_CODE
+				from
+				(
+						select FISCAL_YEAR
+						,TypeItemGroup
+						,AMOUNT
+						,LEVEL_LINE
+						,'1' as nos
+						,DEPARTMENT_CODE
+						from
+						(
+								SELECT FISCAL_YEAR
+								, 'แผน' || ITEM_GROUP_NAME as TypeItemGroup
+								, CASE WHEN sum(BUDGET_AMOUNT) < 0 THEN DECIMAL((sum(BUDGET_AMOUNT)*-1)/1000000,20,0) ELSE DECIMAL(sum(BUDGET_AMOUNT)/1000000,20,0) END AS AMOUNT
+								, LEVEL_LINE
+								, FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+								FROM FN_YEARLY_DEPARTMENT
+								left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+								left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+								where FN_YEARLY_DEPARTMENT.TEMPLATE_CODE = '5'
+								and LEVEL_CODE = '1'
+								and LEVEL_LINE = '1'
+								and (FISCAL_YEAR between (paramFnYear)-2 and (paramFnYear))
+								and (FN_DIM_DEPARTMENT.ORGENIZATION_CODE = (paramFnOrg))
+								and (FN_DIM_DEPARTMENT.DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+								group by FISCAL_YEAR,ITEM_GROUP_NAME, FN_YEARLY_DEPARTMENT.TEMPLATE_CODE, LEVEL_CODE, LEVEL_LINE,FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+						)kmutt
+								
+						union
+								
+						select FISCAL_YEAR
+						,TypeItemGroup
+						,AMOUNT
+						,LEVEL_LINE
+						,'2' as nos
+						,DEPARTMENT_CODE
+						from
+						(
+								SELECT FISCAL_YEAR
+								, 'ผล' || ITEM_GROUP_NAME as TypeItemGroup
+								, CASE WHEN sum(ACTUAL_AMOUNT) < 0 THEN DECIMAL((sum(ACTUAL_AMOUNT)*-1)/1000000,20,0) ELSE DECIMAL(sum(ACTUAL_AMOUNT)/1000000,20,0) END AS AMOUNT
+								, LEVEL_LINE
+								, FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+								FROM FN_YEARLY_DEPARTMENT
+								left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+								left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+								where FN_YEARLY_DEPARTMENT.TEMPLATE_CODE = '5'
+								and LEVEL_CODE = '1'
+								and LEVEL_LINE = '1'
+								and (FISCAL_YEAR between (paramFnYear)-2 and (paramFnYear))
+								and (FN_DIM_DEPARTMENT.ORGENIZATION_CODE = (paramFnOrg))
+								and (FN_DIM_DEPARTMENT.DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+								group by FISCAL_YEAR,ITEM_GROUP_NAME, FN_YEARLY_DEPARTMENT.TEMPLATE_CODE, LEVEL_CODE, LEVEL_LINE, FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+						)kmutt
+				)kmu
+				
+				union
+				
+				select FISCAL_YEAR
+				,TypeItemGroup
+				,AMOUNT
+				,nos
+				,DEPARTMENT_CODE
+				from
+				(
+						select FISCAL_YEAR
+						,TypeItemGroup
+						,AMOUNT
+						,LEVEL_LINE
+						,'3' as nos
+						,DEPARTMENT_CODE
+						from
+						(
+								SELECT FISCAL_YEAR
+								, 'แผน' || ITEM_GROUP_NAME as TypeItemGroup
+								, CASE WHEN sum(BUDGET_AMOUNT) < 0 THEN DECIMAL((sum(BUDGET_AMOUNT)*-1)/1000000,20,0) ELSE DECIMAL(sum(BUDGET_AMOUNT)/1000000,20,0) END AS AMOUNT
+								, LEVEL_LINE
+								, FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+								FROM FN_YEARLY_DEPARTMENT
+								left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+								left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+								where FN_YEARLY_DEPARTMENT.TEMPLATE_CODE = '5'
+								and LEVEL_CODE = '1'
+								and LEVEL_LINE = '2'
+								and (FISCAL_YEAR between (paramFnYear)-2 and (paramFnYear))
+								and (FN_DIM_DEPARTMENT.ORGENIZATION_CODE = (paramFnOrg))
+								and (FN_DIM_DEPARTMENT.DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+								group by FISCAL_YEAR,ITEM_GROUP_NAME, FN_YEARLY_DEPARTMENT.TEMPLATE_CODE, LEVEL_CODE, LEVEL_LINE, FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+						)kmutt
+								
+						union
+								
+						select FISCAL_YEAR
+						,TypeItemGroup
+						,AMOUNT
+						,LEVEL_LINE
+						,'4' as nos
+						,DEPARTMENT_CODE
+						from
+						(
+								SELECT FISCAL_YEAR
+								, 'ผล' || ITEM_GROUP_NAME as TypeItemGroup
+								, CASE WHEN sum(ACTUAL_AMOUNT) < 0 THEN DECIMAL((sum(ACTUAL_AMOUNT)*-1)/1000000,20,0) ELSE DECIMAL(sum(ACTUAL_AMOUNT)/1000000,20,0) END AS AMOUNT
+								, LEVEL_LINE
+								, FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+								FROM FN_YEARLY_DEPARTMENT
+								left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+								left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+								where FN_YEARLY_DEPARTMENT.TEMPLATE_CODE = '5'
+								and LEVEL_CODE = '1'
+								and LEVEL_LINE = '2'
+								and (FISCAL_YEAR between (paramFnYear)-2 and (paramFnYear))
+								and (FN_DIM_DEPARTMENT.ORGENIZATION_CODE = (paramFnOrg))
+								and (FN_DIM_DEPARTMENT.DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+								group by FISCAL_YEAR,ITEM_GROUP_NAME, FN_YEARLY_DEPARTMENT.TEMPLATE_CODE, LEVEL_CODE, LEVEL_LINE, FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+						)kmutt
+				)kmu
+				
+				union
+				
+				select FISCAL_YEAR
+				,TypeItemGroup
+				,AMOUNT
+				,nos
+				,DEPARTMENT_CODE
+				from
+				(
+						select FISCAL_YEAR
+						,TypeItemGroup
+						,AMOUNT
+						,LEVEL_LINE
+						,'5' as nos
+						,DEPARTMENT_CODE
+						from
+						(
+								SELECT FISCAL_YEAR
+								, 'แผน' || ITEM_GROUP_NAME as TypeItemGroup
+								, CASE WHEN sum(BUDGET_AMOUNT) < 0 THEN DECIMAL((sum(BUDGET_AMOUNT)*-1)/1000000,20,0) ELSE DECIMAL(sum(BUDGET_AMOUNT)/1000000,20,0) END AS AMOUNT
+								, LEVEL_LINE
+								, FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+								FROM FN_YEARLY_DEPARTMENT
+								left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+								left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+								where FN_YEARLY_DEPARTMENT.TEMPLATE_CODE = '5'
+								and LEVEL_CODE = '1'
+								and LEVEL_LINE = '3'
+								and (FISCAL_YEAR between (paramFnYear)-2 and (paramFnYear))
+								and (FN_DIM_DEPARTMENT.ORGENIZATION_CODE = (paramFnOrg))
+								and (FN_DIM_DEPARTMENT.DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+								group by FISCAL_YEAR,ITEM_GROUP_NAME, FN_YEARLY_DEPARTMENT.TEMPLATE_CODE, LEVEL_CODE, LEVEL_LINE, FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+						)kmutt
+								
+						union
+								
+						select FISCAL_YEAR
+						,TypeItemGroup
+						,AMOUNT
+						,LEVEL_LINE
+						,'6' as nos
+						,DEPARTMENT_CODE
+						from
+						(
+								SELECT FISCAL_YEAR
+								, 'ผล' || ITEM_GROUP_NAME as TypeItemGroup
+								, CASE WHEN sum(ACTUAL_AMOUNT) < 0 THEN DECIMAL((sum(ACTUAL_AMOUNT)*-1)/1000000,20,0) ELSE DECIMAL(sum(ACTUAL_AMOUNT)/1000000,20,0) END AS AMOUNT
+								, LEVEL_LINE
+								, FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+								FROM FN_YEARLY_DEPARTMENT
+								left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+								left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+								where FN_YEARLY_DEPARTMENT.TEMPLATE_CODE = '5'
+								and LEVEL_CODE = '1'
+								and LEVEL_LINE = '3'
+								and (FISCAL_YEAR between (paramFnYear)-2 and (paramFnYear))
+								and (FN_DIM_DEPARTMENT.ORGENIZATION_CODE = (paramFnOrg))
+								and (FN_DIM_DEPARTMENT.DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+								group by FISCAL_YEAR,ITEM_GROUP_NAME, FN_YEARLY_DEPARTMENT.TEMPLATE_CODE, LEVEL_CODE, LEVEL_LINE, FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+						)kmutt
+				)kmu
+		)gj
+		-- where DEPARTMENT_CODE != (paramFnOrg)
+		order by nos,FISCAL_YEAR
+		
+	;        	
+    OPEN  result_set_1;
+END

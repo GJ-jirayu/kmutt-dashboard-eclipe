@@ -1,0 +1,32 @@
+CREATE PROCEDURE fn_paramOrgName(IN paramOrg VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+		select Org
+		from
+		(
+			SELECT ORGENIZATION_CODE
+			, ORGENIZATION_NAME as Org
+			, DEPARTMENT_CODE
+			,'1' as nos
+			FROM FN_DIM_DEPARTMENT
+			where ORGENIZATION_CODE != 'ไม่ระบุ'
+			group by ORGENIZATION_CODE
+			, ORGENIZATION_NAME
+			, DEPARTMENT_CODE
+			
+			union
+					
+			SELECT 'All' as ORGENIZATION_CODE
+			,'รวมทุกคณะ' as Org
+			,'All' as DEPARTMENT_CODE
+			,'2' as nos
+			from sysibm.sysdummy1
+		)Org
+		where ORGENIZATION_CODE = (paramOrg)
+		group by ORGENIZATION_CODE,Org,nos
+		order by nos,Org
+	;
+    OPEN result_set_1;
+END

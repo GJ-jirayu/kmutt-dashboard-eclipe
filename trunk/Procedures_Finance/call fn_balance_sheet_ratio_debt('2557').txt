@@ -1,0 +1,48 @@
+CREATE PROCEDURE fn_balance_sheet_ratio_debt(IN paramFnYear VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+
+		select RATIO_NAME
+		,'เท่า' as unit
+		,coalesce(last_two_year_ratio,0)
+		,coalesce(last_year_ratio,0)
+		,coalesce(this_year_ratio,0)
+		from (select * from FN_RATIO_NUM where RATIO_KEY in  ('3','4')) fn_ra
+		left join (
+					select RATIO_KEY
+					,CASE WHEN sum(DENOMINATOR1) = 0 THEN 0 ELSE decimal(dec(sum(NUMERATOR1),20,2)/sum(DENOMINATOR1), 9,2) END AS this_year_ratio
+					from FN_FINANCIAL_RATIO_RESULT
+					left join DIM_DATE on DIM_DATE.DATE_KEY = FN_FINANCIAL_RATIO_RESULT.MONTH_KEY
+					where (RATIO_KEY in ('3','4'))
+					and (DIM_DATE.FISCAL_YEAR = paramFnYear)
+					and (DIM_DATE.FISCAL_MONTH_NO <= '12')
+					group by RATIO_NAME,RATIO_KEY,RATIO_GROUPNAME
+		) this_year  on fn_ra.RATIO_KEY = this_year.RATIO_KEY
+		left join (
+					select RATIO_KEY
+					,CASE WHEN sum(DENOMINATOR1) = 0 THEN 0 ELSE decimal(dec(sum(NUMERATOR1),20,2)/sum(DENOMINATOR1), 9,2) END as last_year_ratio
+					from FN_FINANCIAL_RATIO_RESULT
+					left join DIM_DATE on DIM_DATE.DATE_KEY = FN_FINANCIAL_RATIO_RESULT.MONTH_KEY
+					where (RATIO_KEY in ('3','4'))
+					and (DIM_DATE.FISCAL_YEAR = paramFnYear-1)
+					and (DIM_DATE.FISCAL_MONTH_NO <= '12')
+					group by RATIO_NAME,RATIO_KEY,RATIO_GROUPNAME
+		) last_year  on fn_ra.RATIO_KEY = last_year.RATIO_KEY
+		left join (
+					select RATIO_KEY
+					,CASE WHEN sum(DENOMINATOR1) = 0 THEN 0 ELSE decimal(dec(sum(NUMERATOR1),20,2)/sum(DENOMINATOR1), 9,2) END as last_two_year_ratio
+					from FN_FINANCIAL_RATIO_RESULT
+					left join DIM_DATE on DIM_DATE.DATE_KEY = FN_FINANCIAL_RATIO_RESULT.MONTH_KEY
+					where (RATIO_KEY in ('3','4'))
+					and (DIM_DATE.FISCAL_YEAR = paramFnYear-2)
+					and (DIM_DATE.FISCAL_MONTH_NO <= '12')
+					group by RATIO_NAME,RATIO_KEY,RATIO_GROUPNAME
+		) last_two_year  on fn_ra.RATIO_KEY = last_two_year.RATIO_KEY
+;
+    OPEN result_set_1;
+END
+
+
+

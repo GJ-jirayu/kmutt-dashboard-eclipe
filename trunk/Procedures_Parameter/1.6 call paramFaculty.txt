@@ -1,0 +1,27 @@
+CREATE PROCEDURE paramFaculty() 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+	
+select FACULTY_CODE, FACULTY_NAME
+from
+(
+SELECT FACULTY_CODE
+, FACULTY_NAME 
+FROM DIM_FACULTY
+where FACULTY_CODE not in ('N/A')
+
+union
+
+SELECT 'All' as FACULTY_CODE
+,'All' as FACULTY_NAME
+from sysibm.sysdummy1
+)FACULTY
+order by FACULTY_CODE
+;
+
+	
+    OPEN result_set_1;
+END
+	

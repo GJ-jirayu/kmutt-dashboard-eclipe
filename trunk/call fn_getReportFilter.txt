@@ -1,0 +1,29 @@
+CREATE PROCEDURE fn_getReportFilter (IN paramUser VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+	
+        select AREA_CODE
+        ,ORGENIZATION_CODE
+        ,CASE WHEN role_name = 'all' THEN 'All' ELSE DEPARTMENT_CODE END as DEPARTMENT_CODE
+        ,role_name
+        from
+        (                
+			select CASE WHEN role_name = 'all' THEN 'All' ELSE AREA_CODE END as AREA_CODE
+			,CASE WHEN role_name = 'all' THEN 'All' ELSE ORGENIZATION_CODE END as ORGENIZATION_CODE
+			,CASE WHEN substr(DEPARTMENT_CODE,4,5) = '00000' THEN 'All' ELSE DEPARTMENT_CODE END AS DEPARTMENT_CODE
+			,role_name
+			from user_Role
+			left join FN_DIM_DEPARTMENT on user_Role.role_name = FN_DIM_DEPARTMENT.DEPARTMENT_CODE
+			where (user_name = paramUser)
+			group by role_name
+			,AREA_CODE
+			,ORGENIZATION_CODE
+			,DEPARTMENT_CODE
+		)Roles
+		order by role_name
+	
+	;
+    OPEN result_set_1;
+END

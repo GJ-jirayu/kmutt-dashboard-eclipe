@@ -1,0 +1,132 @@
+CREATE PROCEDURE fn_revenu_expense (IN paramFnYear integer,IN paramFnMonth integer,IN paramFnArea VARCHAR(256),IN paramFnOrg VARCHAR(256),IN paramFnDep VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+
+	DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+		
+		select rt.item_group_name
+		,rt.template_key
+		,LEVEL_CODE
+		,PARENT
+		,coalesce(lastMonthBalance,0) 
+		,coalesce(thisMonthBalance,0)
+		,CASE WHEN lastMonthBalance = 0 THEN 0 ELSE coalesce(decimal((dec(thisMonthBalance-lastMonthBalance,20,2)/lastMonthBalance)*100, 9,2),0) END AS per_month
+		,coalesce(lastYearBalance,0)
+		,LEVEL_LINE
+		from 
+		(select * from fn_dim_report_template where template_code = 3 ) rt
+		left join 
+		(
+				select template_key,sum(this_month_balance)/1000000 as thisMonthBalance
+				from FN_MONTHLY_DEPARTMENT f,dim_date d,FN_DIM_DEPARTMENT dep
+				where f.month_key = d.date_key 
+				and f.DEPARTMENT_KEY = dep.DEPARTMENT_KEY 
+				and template_code = 3
+				and d.fiscal_year = paramFnYear
+				and fiscal_month_no = 1
+				and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+				and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+				and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+				group by f.template_key
+		) thismonth  on rt.template_key = thismonth.template_key
+		left join 
+		(
+				select template_key,sum(this_month_balance)/1000000 as lastMonthBalance
+				from FN_MONTHLY_DEPARTMENT f,dim_date d,FN_DIM_DEPARTMENT dep
+				where f.month_key = d.date_key 
+				and f.DEPARTMENT_KEY = dep.DEPARTMENT_KEY 
+				and template_code = 3
+				and d.fiscal_year = paramFnYear-1
+				and fiscal_month_no = 12
+				and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+				and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+				and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+				group by f.template_key
+		) lastmonth on rt.template_key = lastmonth.template_key
+		left join
+		(
+				select template_key,sum(this_month_balance)/1000000 as lastYearBalance
+				from FN_MONTHLY_DEPARTMENT f,dim_date d,FN_DIM_DEPARTMENT dep
+				where f.month_key = d.date_key 
+				and f.DEPARTMENT_KEY = dep.DEPARTMENT_KEY 
+				and template_code = 3
+				and d.fiscal_year = paramFnYear-1 
+				and fiscal_month_no <= 12 
+				and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+				and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+				and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+				group by f.template_key
+		) lastyear  on rt.template_key = lastyear.template_key
+		order by key_chain	
+	
+	;
+	
+	DECLARE result_set_2 CURSOR WITH RETURN TO CLIENT FOR
+		
+		select rt.item_group_name
+		,rt.template_key
+		,LEVEL_CODE
+		,PARENT
+		,coalesce(lastMonthBalance,0) 
+		,coalesce(thisMonthBalance,0)
+		,CASE WHEN lastMonthBalance = 0 THEN 0 ELSE coalesce(decimal((dec(thisMonthBalance-lastMonthBalance,20,2)/lastMonthBalance)*100, 9,2),0) END AS per_month
+		,coalesce(lastYearBalance,0)
+		,LEVEL_LINE
+		from 
+		(select * from fn_dim_report_template where template_code = 3 ) rt
+		left join 
+		(
+				select template_key,sum(this_month_balance)/1000000 as thisMonthBalance
+				from FN_MONTHLY_DEPARTMENT f,dim_date d,FN_DIM_DEPARTMENT dep
+				where f.month_key = d.date_key 
+				and f.DEPARTMENT_KEY = dep.DEPARTMENT_KEY 
+				and template_code = 3
+				and d.fiscal_year = paramFnYear 
+				and fiscal_month_no = paramFnMonth
+				and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+				and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+				and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+				group by f.template_key
+		) thismonth  on rt.template_key = thismonth.template_key
+		left join 
+		(
+				select template_key,sum(this_month_balance)/1000000 as lastMonthBalance
+				from FN_MONTHLY_DEPARTMENT f,dim_date d,FN_DIM_DEPARTMENT dep
+				where f.month_key = d.date_key 
+				and f.DEPARTMENT_KEY = dep.DEPARTMENT_KEY 
+				and template_code = 3
+				and d.fiscal_year = paramFnYear
+				and fiscal_month_no = paramFnMonth-1
+				and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+				and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+				and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+				group by f.template_key
+		) lastmonth on rt.template_key = lastmonth.template_key
+		left join
+		(
+				select template_key,sum(this_month_balance)/1000000 as lastYearBalance
+				from FN_MONTHLY_DEPARTMENT f,dim_date d,FN_DIM_DEPARTMENT dep
+				where f.month_key = d.date_key 
+				and f.DEPARTMENT_KEY = dep.DEPARTMENT_KEY 
+				and template_code = 3
+				and d.fiscal_year = paramFnYear-1 
+				and fiscal_month_no <= 12 
+				and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+				and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+				and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+				group by f.template_key
+		) lastyear  on rt.template_key = lastyear.template_key
+		order by key_chain	
+	
+	;
+	
+     IF (paramFnMonth) = '1' THEN
+        OPEN  result_set_1;
+     ELSE
+        OPEN  result_set_2;
+     END IF;
+END
+
+
+

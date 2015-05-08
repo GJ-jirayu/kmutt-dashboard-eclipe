@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link class="style" href="../../Css/Finance/fn_ratio_cost.css" rel="stylesheet" type="text/css">
+
+<style>
+	#Chart_fn_ratio_cost_exp{
+		width:690px;
+		height:300px;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	
+	#Chart_fn_ratio_cost_exp_fac{
+		width:690px;
+		height:260px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+	#Chart_fn_ratio_cost_exp_fac_year{
+		width:690px;
+		height:260px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+	#Chart_fn_ratio_cost_exp_dep{
+		width:690px;
+		height:260px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+	#Chart_fn_ratio_cost_exp_dep_year{
+		width:690px;
+		height:260px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+	/*                         */
+	
+	#Chart_fn_ratio_cost_rec{
+		width:690px;
+		height:300px;
+		margin-left:auto;
+		margin-right:auto;
+	}	
+	
+	#Chart_fn_ratio_cost_rec_fac{
+		width:690px;
+		height:260px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+	#Chart_fn_ratio_cost_rec_fac_year{
+		width:690px;
+		height:260px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+	#Chart_fn_ratio_cost_rec_dep{
+		width:690px;
+		height:260px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+	#Chart_fn_ratio_cost_rec_dep_year{
+		width:690px;
+		height:260px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+
+</style>
+
+<script type="text/javascript"> $(".Year").html($("#embfn_paramYear").val()) ;</script>
+<script type="text/javascript"> $(".OrgExp").html($("#embfn_paramOrg").val()) ;</script>
+<script type="text/javascript"> $(".DepExp").html($("#embfn_paramDep").val()) ;</script>
+<script type="text/javascript"> $(".OrgRec").html($("#embfn_paramOrg").val()) ;</script>
+<script type="text/javascript"> $(".DepRec").html($("#embfn_paramDep").val()) ;</script>
+
+</head>
+<body>
+	<div id="main">
+		<div id = "headcost">
+			<div class = "cost">
+				<div class = "headChartcost">
+					<div class = "headTitleChartcost">
+						ค่าใช้จ่ายบุคลากรต่อรายรับงบดำเนินการ คิดเป็นเปอร์เซ็น <br/>
+						<label class="OrgExp"></label> <label class="DepExp"></label><br/> 
+						ปีงบประมาณ<label class="Year"></label>
+					</div>
+					<div class = "fn_ratio_cost"><label id="fn_ratio_cost_exp_val"></label></div>
+					<div id = "Chart_fn_ratio_cost_exp" class = "chart"></div>
+					<div class = "fn_ratio_cost_text">
+						ถ้าค่าใช้จ่ายบุคลากรต่อรายรับงบดำเนินการน้อยกว่า 40% เข็มจะอยู่ในพื้นที่สีเขียว<br/>
+						แต่ถ้าค่าใช้จ่ายบุคลากรต่อรายรับงบดำเนินการอยู่ระหว่าง 41%-60% เข็มจะอยู่ในพื้นที่สีเหลือง<br/>
+						และถ้าค่าใช้จ่ายบุคลากรต่อรายรับงบดำเนินการมากกว่า 61% เข็มจะอยู่ในพื้นที่สีแดง
+					</div>
+					<div class = "remart"></div>
+				</div>
+				
+				<div class = "detailChartfaccost">
+					<div class = "detailTitleChartfaccost">
+						ค่าใช้จ่ายบุคลากรต่อรายรับงบดำเนินการ <br/> 
+						<label class="OrgExp"></label><br/>
+						ปีงบประมาณ<label class="Year"></label>
+					</div>
+					<div id = "Chart_fn_ratio_cost_exp_fac_unit" class ="unit">หน่วย : ล้านบาท</div>
+					<div id = "Chart_fn_ratio_cost_exp_fac" class = "chart"></div>
+					<div class = "remart"></div>
+				</div>
+				
+				<div class = "detailChartfaccost">
+					<div class = "detailTitleChartfaccost">
+						ค่าใช้จ่ายบุคลากรต่อรายรับงบดำเนินการ เปรียบเทียบแผนผล <br/> 
+						<label class="OrgExp"></label><br/>
+						ปีงบประมาณ<label class="Year"></label> และย้อนหลัง 2 ปี
+					</div>
+					<div id = "Chart_fn_ratio_cost_exp_fac_year_unit" class ="unit">หน่วย : ล้านบาท</div>
+					<div id = "Chart_fn_ratio_cost_exp_fac_year" class = "chart"></div>
+					<div class = "remart"></div>
+				</div>
+				
+				
+				<div class = "detailChartdepexpcost">
+					<div class = "detailTitleChartdepcost">
+						ค่าใช้จ่ายบุคลากรต่อรายรับงบดำเนินการ<br/> 
+						<label class="OrgExp"></label> <label class="DepExp"></label><br/>
+						ปีงบประมาณ<label class="Year"></label> 
+					</div>
+					<div id = "Chart_fn_ratio_cost_exp_dep_unit" class ="unit">หน่วย : ล้านบาท</div>
+					<div id = "Chart_fn_ratio_cost_exp_dep" class = "chart"></div>
+					<div class = "remart"></div>
+				</div>
+				
+				<div class = "detailChartdepexpcost">
+					<div class = "detailTitleChartdepcost">
+						ค่าใช้จ่ายบุคลากรต่อรายรับงบดำเนินการ เปรียบเทียบแผนผล<br/> 
+						<label class="OrgExp"></label> <label class="DepExp"></label><br/>
+						ปีงบประมาณ<label class="Year"></label> 
+					</div>
+					<div id = "Chart_fn_ratio_cost_exp_dep_year_unit" class ="unit">หน่วย : ล้านบาท</div>
+					<div id = "Chart_fn_ratio_cost_exp_dep_year" class = "chart"></div>
+					<div class = "remart"></div>
+				</div>
+			</div>
+			
+			<div class = "cost">
+				<div class = "headChartcost">
+					<div class = "headTitleChartcost">
+						ค่าใช้จ่ายบุคลากรต่อรายจ่ายดำเนินการ คิดเป็นเปอร์เซ็น<br/>
+						<label class="OrgRec"></label> <label class="DepRec"></label><br/>
+						 ปีงบประมาณ<label class="Year"></label>
+					</div>
+					<div class = "fn_ratio_cost"><label id="fn_ratio_cost_rec_val"></label></div>
+					<div id = "Chart_fn_ratio_cost_rec" class = "chart"></div>
+					<div class = "fn_ratio_cost_text">
+						ถ้าค่าใช้จ่ายบุคลากรต่อรายจ่ายงบดำเนินการน้อยกว่า 40% เข็มจะอยู่ในพื้นที่สีเขียว<br/>
+						แต่ถ้าค่าใช้จ่ายบุคลากรต่อรายจ่ายงบดำเนินการอยู่ระหว่าง 41%-60% เข็มจะอยู่ในพื้นที่สีเหลือง<br/>
+						และถ้าค่าใช้จ่ายบุคลากรต่อรายจ่ายงบดำเนินการมากกว่า 61% เข็มจะอยู่ในพื้นที่สีแดง
+					</div>
+					<div class = "remart"></div>
+				</div>
+				
+				<div class = "detailChartfaccost">
+					<div class = "detailTitleChartfaccost">
+						ค่าใช้จ่ายบุคลากรต่อรายจ่ายดำเนินการ<br/> 
+						<label class="OrgRec"></label><br/>
+						ปีงบประมาณ<label class="Year"></label>
+					</div>
+					<div id = "Chart_fn_ratio_cost_rec_fac_unit" class ="unit">หน่วย : ล้านบาท</div>
+					<div id = "Chart_fn_ratio_cost_rec_fac" class = "chart"></div>
+					<div class = "remart"></div>
+				</div>
+				
+				<div class = "detailChartfaccost">
+					<div class = "detailTitleChartfaccost">
+						ค่าใช้จ่ายบุคลากรต่อรายจ่ายดำเนินการ เปรียบเทียบแผนผล<br/> 
+						<label class="OrgRec"></label><br/>
+						ปีงบประมาณ<label class="Year"></label> และย้อนหลัง 2 ปี
+					</div>
+					<div id = "Chart_fn_ratio_cost_rec_fac_year_unit" class ="unit">หน่วย : ล้านบาท</div>
+					<div id = "Chart_fn_ratio_cost_rec_fac_year" class = "chart"></div>
+					<div class = "remart"></div>
+				</div>
+				
+				<div class = "detailChartdepreccost">
+					<div class = "detailTitleChartdepcost">
+						ค่าใช้จ่ายบุคลากรต่อรายจ่ายดำเนินการ เปรียบเทียบแผนผล<br/> 
+						<label class="OrgRec"></label> <label class="DepRec"></label><br/>
+						ปีงบประมาณ<label class="Year"></label> และย้อนหลัง 2 ปี
+					</div>
+					<div id = "Chart_fn_ratio_cost_rec_dep_unit" class ="unit">หน่วย : ล้านบาท</div>
+					<div id = "Chart_fn_ratio_cost_rec_dep" class = "chart"></div>
+					<div class = "remart"></div>
+				</div>
+				
+				<div class = "detailChartdepreccost">
+					<div class = "detailTitleChartdepcost">
+						ค่าใช้จ่ายบุคลากรต่อรายจ่ายดำเนินการ เปรียบเทียบแผนผล<br/> 
+						<label class="OrgRec"></label> <label class="DepRec"></label><br/>
+						ปีงบประมาณ<label class="Year"></label> และย้อนหลัง 2 ปี
+					</div>
+					<div id = "Chart_fn_ratio_cost_rec_dep_year_unit" class ="unit">หน่วย : ล้านบาท</div>
+					<div id = "Chart_fn_ratio_cost_rec_dep_year" class = "chart"></div>
+					<div class = "remart"></div>
+				</div>
+			</div>
+		</div>
+		<br style="clear:both">
+	</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link class="style" href="../../Css/Curriculum/curriculum_fee_type.css" rel="stylesheet" type="text/css">
+
+<style>
+		#Chart_curriculum_fee_type_by_year{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+		#Chart_curriculum_fee_type_by_field{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+</style>
+
+
+<script type="text/javascript"> $(".Year").html($("#embparamYearList").val()) ;</script>
+
+	<div id = "main2">
+		<div id = "topContent2">
+			<div class = "panel2">
+				<div class = "panelTitleChart2">
+					จำนวนสาขาวิชาที่เปิดสอน <label class="edu"></label> ปีการศึกษา  <label class="Year"></label><br/>
+					จำแนกตามประเภทหลักสูตร
+
+				</div>
+				<br/><br/>
+				<div id = "Chart_curriculum_fee_type_by_year" class = "chart"> 
+				</div>
+			</div>
+			<div class="panel2">
+				<div class = "panelTitleChart2">
+					ร้อยละของจำนวนสาขาวิชาที่เปิดสอน ปีการศึกษา <label class="Year"></label><br/>
+					จำแนกตามประเภทหลักสูตรเป็นรายคณะ
+
+				</div>
+				<br/><br/>
+				<div id = "Chart_curriculum_fee_type_by_field" class = "chart">
+				</div>
+			</div>
+		</div>	
+		<br style = "clear:both">
+	</div>

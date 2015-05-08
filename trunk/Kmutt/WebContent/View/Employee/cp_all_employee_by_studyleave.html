@@ -1,0 +1,59 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link class="style" href="../../Css/Employee/cp_all_employee_by_studyleave.css" rel="stylesheet" type="text/css">
+
+<style>
+		#Chart_emp_by_study_year{
+		width:650px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+		#Chart_emp_by_study_fac_a{
+		width:1120px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+	#Chart_emp_by_study_fac_b{
+		width:1120px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+</style>
+<script type="text/javascript"> $(".Year").html($("#embemp_paramYear").val()) ;</script>
+<script type="text/javascript"> $(".YearSub").html($("#embemp_paramSizeList").val()) ;</script>
+
+	<div id = "main1">
+		<div id = "topContent1">
+			<div class = "panel1">
+				<div class = "panelTitleChart1">
+					จำนวน<label class="pos"></label>ที่ลาศึกษาต่อ ย้อนหลัง <label class="YearSub"></label> ปี <br/> 
+ 					(คลิกที่แต่ละปีเพื่อดูรายละเอียดในระดับหน่วยงาน)
+				</div>
+				<br/><br/>
+				<div id = "Chart_emp_by_study_year" class = "chart"></div>
+			</div>
+			<div class="panel2">
+				<div class = "panelTitleChart1"> 
+					จำนวน<label class="pos"></label>ที่ลาศึกษาต่อ จำแนกตามหน่วยงาน ปี <label class="Year"></label> <br/>
+ 						(หน่วยงานจัดการเรียนการสอน) 
+					
+				</div>
+				<br/><br/>
+				<div id = "Chart_emp_by_study_fac_a" class = "chart"></div>
+			</div>
+			<div class="panel2">
+				<div class = "panelTitleChart1"> 
+					จำนวน<label class="pos"></label>ที่ลาศึกษาต่อ จำแนกตามหน่วยงานปี <label class="Year"></label> <br/>
+ 					(หน่วยงานสนับสนุนฯ) 
+					
+				</div>
+				<br/><br/>
+				<div id = "Chart_emp_by_study_fac_b" class = "chart"></div>
+			</div>
+		</div>	
+	</div>

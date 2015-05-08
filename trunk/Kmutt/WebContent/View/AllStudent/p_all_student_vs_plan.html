@@ -1,0 +1,69 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link class="style" href="../../Css/AllStudent/p_all_student_vs_plan.css" rel="stylesheet" type="text/css">
+<style>
+
+		#Chart_p_all_student_vs_plan_by_year{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+	
+		#Chart_p_all_student_by_education_level_and_student_type{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+	
+		#Chart_p_all_student_vs_plan_by_faculty{
+		width:1120px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+</style>
+<script type="text/javascript"> $(".Year").html($("#embparamYearList").val()) ;</script>
+
+<script type="text/javascript"> $(".YearSub").html($("#embparamYearSubList").val()) ;</script>
+<div id = "main1">	
+
+		<div id = "topContent1">
+			<div class = "panel1">
+				<div class = "panelTitleChart1">
+					จำนวนนักศึกษาทั้งหมดเปรียบเทียบกับแผน ย้อนหลัง <label class="YearSub"></label> ปี <br/> 
+					(คลิกที่แต่ละปีเพื่อดูรายละเอียดในระดับคณะ)
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_all_student_vs_plan_by_year" class = "chart"> 
+				
+				</div>
+			</div>
+			<div class="panel1">
+				<div class = "panelTitleChart1">
+					สัดส่วนประเภทนักศึกษาทั้งหมดจำแนกตามระดับการศึกษา<br/>
+					ปีการศึกษา <label class="Year"></label>
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_all_student_by_education_level_and_student_type" class = "chart">
+				
+				</div>
+			</div>
+		</div>
+
+		<div id = "topCon1">
+			<div class = "panel1">
+				<div class = "panelTitleChart1">
+					จำนวนนักศึกษาทั้งหมดเปรียบเทียบกับแผนเป็นรายคณะ <br/>
+					ปีการศึกษา <label class="Year"></label> 
+				</div>
+					<br/><br/>
+				<div id = "Chart_p_all_student_vs_plan_by_faculty" class = "chart"> 
+				</div>
+			</div>
+		</div>
+	<br style = "clear:both">
+</div>

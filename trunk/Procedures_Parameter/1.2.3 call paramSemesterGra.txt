@@ -1,0 +1,36 @@
+CREATE PROCEDURE paramSemesterGra() 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+	
+select SEMESTER_CODE
+,SEMESTER_NAME
+from
+(SELECT distinct SEMESTER_CODE
+,'1' as SEMESTER_NAME
+,'1' as nos
+FROM DIM_SEMESTER
+where SEMESTER_CODE in ('1')
+union
+SELECT distinct SEMESTER_CODE
+,'2' as SEMESTER_NAME
+,'2' as nos
+FROM DIM_SEMESTER
+where SEMESTER_CODE in ('2')
+union
+SELECT distinct SEMESTER_CODE
+,'S' as SEMESTER_NAME
+,'3' as nos
+FROM DIM_SEMESTER
+where SEMESTER_CODE in ('3')
+union
+SELECT 'All' as SEMESTER_CODE
+,'All' as SEMESTER_NAME
+FROM sysibm.sysdummy1
+)SEMESTER
+order by nos;
+	
+    OPEN result_set_1;
+END
+	

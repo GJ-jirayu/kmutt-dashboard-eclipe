@@ -1,0 +1,101 @@
+#main{
+	/*border:1px solid #cccccc;*/
+}
+
+#main #headie{
+	/*border:1px solid #771b0c;*/
+	border-radius: 5px;
+}
+
+#headie #headChartie{
+	border:1px solid #99ccff;
+	background:#fcfdfe;
+	width:709px;
+	height:460px;
+	margin-left:auto;
+	margin-right:auto;
+	border-radius: 5px;
+}
+
+#headie #headTitleChartie{
+	text-align:center;
+	font-weight:bold;
+	padding:10px;
+	margin-bottom:10px;
+	border:1px solid #ffffff;
+	background:#008ec3;
+	color:#ffffff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+
+#main #detailie{
+	/*border:1px solid #cccccc;*/
+	margin-top:5px;
+	border-radius: 5px;
+	width:auto;
+}
+
+#detailie .detailChartfacie{
+	border:1px solid #99ccff;
+	background:#fcfdfe;
+	margin:5px;
+	height:425px;
+	width:709px;
+	border-radius: 5px;
+	float:left;
+}
+
+#detailie .detailTitleChartfacie{
+	text-align:center;
+	font-weight:bold;
+	padding:10px;
+	margin-bottom:25px;
+	border:1px solid #ffffff;
+	background:#008ec3;
+	color:#ffffff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+#detailie .detailChartdepie{
+	border:1px solid #99ccff;
+	background:#fcfdfe;
+	margin:5px;
+	height:425px;
+	width:709px;
+	border-radius: 5px;
+	float:left;
+}
+
+#detailie .detailTitleChartdepie{
+	text-align:center;
+	font-weight:bold;
+	padding:10px;
+	margin-bottom:25px;
+	border:1px solid #ffffff;
+	background:#008ec3;
+	color:#ffffff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+#fn_ratio_ie{
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#fn_ratio_ie_text{
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	font:14px Tahoma ;
+}
+
+.unit{
+	font:12px Tahoma ;
+	width:690px;
+	text-align:right;
+}

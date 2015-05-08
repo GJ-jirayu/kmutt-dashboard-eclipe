@@ -1,0 +1,68 @@
+<link class="style" href="../../Css/NewStudent/p_new_student_plan.css" rel="stylesheet" type="text/css">
+<style>
+
+		#Chart_p_new_student_vs_plan_by_year{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+	
+		#Chart_p_new_student_top_n_school{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+	
+		#Chart_p_new_student_vs_plan_by_faculty{
+		width:1120px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+</style>
+<script type="text/javascript"> $(".Year").html($("#embparamYearList").val()) ;</script>
+<script type="text/javascript"> $(".YearSub").html($("#embparamYearSubList").val()) ;</script>
+<div id = "main3">
+		<div id = "topContent3">
+			<div class = "panel3">
+				<div class = "panelTitleChart3">
+					จำนวนนักศึกษาใหม่เปรียบเทียบกับแผน ปีการศึกษา <label class="Year"></label><br/>
+					 ย้อนหลัง <label class="YearSub"></label> ปี (คลิกที่แต่ละปีเพื่อดูรายละเอียดระดับคณะ)
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_new_student_vs_plan_by_year" class = "chart"> 
+				
+				</div>
+			</div>
+			<div class="panel3">
+				<div class = "panelTitleChart31">
+						Top
+						 <select id="paramTop">
+	              			<option value=5 > 5 </option>
+	               			<option value=10> 10 </option>	                	
+	               		</select>
+	               		โรงเรียนที่มีนักศึกษาใหม่มากที่สุด  ปีการศึกษา  <label class="Year"></label>
+	               		
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_new_student_top_n_school" class = "chart">
+				</div>
+			</div>
+		</div>	
+		<div id = "topCon3">
+			<div class = "panel3">
+				<div class = "panelTitleChart3">
+					จำนวนนักศึกษาใหม่แปรียบทียบกับแผน เป็นรายคณะ ปีการศึกษา  <label class="Year"></label>
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_new_student_vs_plan_by_faculty" class = "chart"> 
+				</div>
+			</div>
+		</div>
+	<br style = "clear:both">
+</div>

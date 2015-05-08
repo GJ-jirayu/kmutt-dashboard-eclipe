@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link class="style" href="../../Css/Finance/fn_ratio_ie.css" rel="stylesheet" type="text/css">
+
+<style>
+		#Chart_fn_ratio_ie{
+		width:690px;
+		height:300px;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	
+		#Chart_fn_ratio_ie_fac{
+		width:690px;
+		height:285px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+		#Chart_fn_ratio_ie_fac_year{
+		width:690px;
+		height:285px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+		#Chart_fn_ratio_ie_dep{
+		width:690px;
+		height:285px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+		#Chart_fn_ratio_ie_dep_year{
+		width:690px;
+		height:285px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+
+</style>
+
+<script type="text/javascript"> $(".Year").html($("#embfn_paramYear").val()) ;</script>
+<script type="text/javascript"> $(".Area").html($("#embfn_paramArea").val()) ;</script>
+<script type="text/javascript"> $(".Org").html($("#embfn_paramOrg").val()) ;</script>
+<script type="text/javascript"> $(".Dep").html($("#embfn_paramDep").val()) ;</script>
+
+
+</head>
+<body>
+	<div id="main">
+		<div id = "headie">
+			<div id = "headChartie">
+				<div id = "headTitleChartie">
+					รายรับรวม รายจ่ายรวม (IE Ratio) <br/>
+					<label class="Org"></label> <label class="Dep"></label><br/> 
+					ปีงบประมาณ<label class="Year"></label>
+				</div>
+				<div id = "fn_ratio_ie">IE Ratio <label id="fn_ratio_ie_val"></label></div>
+				<div id = "Chart_fn_ratio_ie" class = "chart"></div>
+				<div id = "fn_ratio_ie_text">
+					ถ้ารายรับต่อรายจ่ายน้อยกว่าหรือเท่ากับ 1 เข็มจะอยู่ในพื้นที่สีแดง<br/>
+					แต่ถ้ารายรับต่อรายจ่ายมากกว่า 1 เข็มจะอยู่ในพื้นที่สีเขียว
+				</div>
+				<div class = "remart"></div>
+			</div>
+		</div>
+		
+		<div id = "detailie">
+			<div class = "detailChartfacie">
+				<div class = "detailTitleChartfacie">
+					รายรับรวม รายจ่ายรวม (IE Ratio) <br/>
+					<label class="Org"></label><br/> 
+					ปีงบประมาณ <label class="Year"></label>
+				</div>
+				<div id = "Chart_fn_ratio_ie_fac_unit" class ="unit">หน่วย : ล้านบาท</div>
+				<div id = "Chart_fn_ratio_ie_fac" class = "chart"></div>
+				<div class = "remart"></div>
+			</div>
+			<div class = "detailChartfacie">
+				<div class = "detailTitleChartfacie">
+					รายรับรวม รายจ่ายรวม (IE Ratio) เปรียบเทียบแผนผล<br/> 
+					<label class="Org"></label> <br/>
+					ปีงบประมาณ<label class="Year"></label> และย้อนหลัง 2 ปี
+				</div>
+				<div id = "Chart_fn_ratio_ie_fac_year_unit" class ="unit">หน่วย : ล้านบาท</div>
+				<div id = "Chart_fn_ratio_ie_fac_year" class = "chart"></div>
+				<div class = "remart"></div>
+			</div>
+			<div class = "detailChartdepie">
+				<div class = "detailTitleChartdepie">
+					รายรับรวม รายจ่ายรวม (IE Ratio) <br/>
+					<label class="Org"></label> <label class="Dep"></label><br/>
+					 ปีงบประมาณ<label class="Year"></label>
+				</div>
+				<div id = "Chart_fn_ratio_ie_dep_unit" class ="unit">หน่วย : ล้านบาท</div>
+				<div id = "Chart_fn_ratio_ie_dep" class = "chart"></div>
+				<div class = "remart"></div>
+			</div>
+			<div class = "detailChartdepie">
+				<div class = "detailTitleChartdepie">
+					รายรับรวม รายจ่ายรวม (IE Ratio) เปรียบเทียบแผนผล <br/> 
+					<label class="Org"></label> <label class="Dep"></label><br/>
+					 ปีงบประมาณ<label class="Year"></label> และย้อนหลัง 2 ปี
+				</div>
+				<div id = "Chart_fn_ratio_ie_dep_year_unit" class ="unit">หน่วย : ล้านบาท</div>
+				<div id = "Chart_fn_ratio_ie_dep_year" class = "chart"></div>
+				<div class = "remart"></div>
+			</div>
+			<br style="clear:both">
+		</div>
+	</div>
+</body>
+</html>

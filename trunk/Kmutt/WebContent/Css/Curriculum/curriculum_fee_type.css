@@ -1,0 +1,34 @@
+#main2{
+	color:#000000;
+	font:14px Tahoma;
+	/*border:1px solid red;*/
+}
+
+#topContent2{
+	/*width:950px;*/
+	height:auto;
+	margin-left:auto;
+	margin-right:auto;	
+	/*border:1px solid yellow;*/
+}
+
+#topContent2 .panel2{
+	float:left;
+	width:560px;
+	height:440px;
+	background:#ffffff;
+	border:1px solid #FFA840;
+	border-radius: 5px;
+	margin-left:10px;
+	/*border:1px solid yellow;*/
+}
+
+#topContent2 .panel2 .panelTitleChart2{
+	text-align:center;
+	font-weight:bold;
+	color:white;
+	padding:5px;
+	background:#FFA840;
+	border-color:#FFA840;
+	border-width:4px;
+}

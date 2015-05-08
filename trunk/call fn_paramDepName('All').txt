@@ -1,0 +1,34 @@
+CREATE PROCEDURE fn_paramDepName(IN paramDep VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+		
+	select DEP
+	from
+	(
+	    SELECT DEPARTMENT_CODE
+        ,DEPARTMENT_NAME as DEP
+		,'1' as nos
+		,ORGENIZATION_CODE
+		FROM FN_DIM_DEPARTMENT
+		where ORGENIZATION_CODE != 'ไม่ระบุ'
+		group by DEPARTMENT_CODE
+		,DEPARTMENT_NAME
+		,ORGENIZATION_CODE
+		,ORGENIZATION_CODE
+		
+		union
+
+		SELECT 'All' as DEPARTMENT_CODE
+		,'รวมทุกภาควิชา' as DEP
+		,'2' as nos
+		,'All' as ORGENIZATION_CODE
+		from sysibm.sysdummy1
+	)kmutt
+	where DEPARTMENT_CODE = (paramDep)
+	order by nos,DEP		
+		
+	;
+    OPEN result_set_1;
+END

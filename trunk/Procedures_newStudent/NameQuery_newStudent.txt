@@ -1,0 +1,11 @@
+--  นักศึกษาใหม่_กราฟ 1.1 (กราฟแท่งกับเส้น) p_candidate_qualifier_register_by_total
+-- นักศึกษาใหม่_กราฟ 1.2 (กราฟแท่งกับเส้น) p_candidate_qualifier_register_by_faculty
+-- นักศึกษาใหม่_กราฟ 2.1 (กราฟแท่ง) p_new_student_by_faculty_and_admission_type
+-- นักศึกษาใหม่_กราฟ 2.2(กราฟแท่ง) p_new_student_by_faculty_and_grade_range
+-- นักศึกษาใหม่_กราฟ 2.3 (กราฟวงกลม) p_new_student_by_faculty
+-- นักศึกษาใหม่_กราฟ 3.1 (กราฟแท่งกับเส้น) p_new_student_vs_plan_by_year
+-- นักศึกษาใหม่_กราฟ 3.2 (กราฟวงกลม) p_new_student_top_n_school
+-- นักศึกษาใหม่_กราฟ 3.3 (กราฟแท่งกับเส้น) p_new_student_vs_plan_by_faculty
+-- นักศึกษาใหม่_กราฟ 4.1 (กราฟส้น) p_new_student_by_year_and_faculty
+-- นักศึกษาใหม่_กราฟ 5.1 (กราฟแผนที่) p_new_student_by_province
+-- นักศึกษาใหม่_กราฟ 5.1 (ตาราง) p_new_student_by_school

@@ -1,0 +1,30 @@
+CREATE PROCEDURE emp_paramType() 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+				
+select EMP_TYPE_CODE
+,EMP_TYPE_NAME
+from
+(
+SELECT 'All' as EMP_TYPE_CODE
+,'รวม' as EMP_TYPE_NAME
+,'2' as nos
+from sysibm.sysdummy1
+
+union
+
+SELECT HR_DIM_EMP_TYPE.EMP_TYPE_CODE
+, HR_DIM_EMP_TYPE.EMP_TYPE_NAME
+,'1' as nos
+FROM HR_DIM_EMP_TYPE
+group by HR_DIM_EMP_TYPE.EMP_TYPE_CODE
+, HR_DIM_EMP_TYPE.EMP_TYPE_NAME
+)kmutt
+order by nos,EMP_TYPE_CODE
+				
+	;
+		
+    OPEN result_set_1;
+END

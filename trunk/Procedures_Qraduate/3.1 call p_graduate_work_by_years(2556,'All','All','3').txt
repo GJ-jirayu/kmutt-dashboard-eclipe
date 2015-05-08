@@ -1,0 +1,103 @@
+CREATE PROCEDURE p_graduate_work_by_years(IN paramYEAR INTEGER,IN paramFOREIGN VARCHAR(256),IN paramEDU VARCHAR(256),IN paramYEARSUB VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+
+select work.ACADEMIC_YEAR
+,work.graduate_work
+,CASE WHEN work3.total != 0 THEN DECIMAL(((DECIMAL(work.employ,8,2) * 100)/work3.total),8,2) ELSE 0 END AS Totalemploy
+from 
+(
+SELECT fact_graduate_work.ACADEMIC_YEAR
+,'ทำงานแล้ว' as graduate_work
+,sum(no_of_employ) as employ
+from fact_graduate_work
+left join DIM_FOREIGN_FLAG on DIM_FOREIGN_FLAG.FOREIGN_FLAG_KEY = fact_graduate_work.FOREIGN_FLAG_KEY
+left join dim_student on dim_student.student_key = fact_graduate_work.student_key
+left join dim_program on dim_program.program_project_code = dim_student.program_project_code
+where (fact_graduate_work.ACADEMIC_YEAR between (paramYEAR)-(paramYEARSUB)+('1') and (paramYEAR))
+and (DIM_FOREIGN_FLAG.FOREIGN_FLAG in (paramFOREIGN) or 'All' in (paramFOREIGN))
+and (dim_program.education_level_code in (paramEDU) or 'All' in (paramEDU))
+group by fact_graduate_work.ACADEMIC_YEAR
+
+union
+
+SELECT fact_graduate_work.ACADEMIC_YEAR
+,'ยังไม่ได้ทำงานและอื่นๆ' as graduate_work
+,sum(no_of_unemploy) as employ
+from fact_graduate_work
+left join DIM_FOREIGN_FLAG on DIM_FOREIGN_FLAG.FOREIGN_FLAG_KEY = fact_graduate_work.FOREIGN_FLAG_KEY
+left join dim_student on dim_student.student_key = fact_graduate_work.student_key
+left join dim_program on dim_program.program_project_code = dim_student.program_project_code
+where (fact_graduate_work.ACADEMIC_YEAR between (paramYEAR)-(paramYEARSUB)+('1') and (paramYEAR))
+and (DIM_FOREIGN_FLAG.FOREIGN_FLAG in (paramFOREIGN) or 'All' in (paramFOREIGN))
+and (dim_program.education_level_code in (paramEDU) or 'All' in (paramEDU))
+group by fact_graduate_work.ACADEMIC_YEAR
+
+union
+
+SELECT fact_graduate_work.ACADEMIC_YEAR
+,'ศึกษาต่อ' as graduate_work
+,sum(no_of_study) as employ
+from fact_graduate_work
+left join DIM_FOREIGN_FLAG on DIM_FOREIGN_FLAG.FOREIGN_FLAG_KEY = fact_graduate_work.FOREIGN_FLAG_KEY
+left join dim_student on dim_student.student_key = fact_graduate_work.student_key
+left join dim_program on dim_program.program_project_code = dim_student.program_project_code
+where (fact_graduate_work.ACADEMIC_YEAR between (paramYEAR)-(paramYEARSUB)+('1') and (paramYEAR))
+and (DIM_FOREIGN_FLAG.FOREIGN_FLAG in (paramFOREIGN) or 'All' in (paramFOREIGN))
+and (dim_program.education_level_code in (paramEDU) or 'All' in (paramEDU))
+group by fact_graduate_work.ACADEMIC_YEAR
+)work
+left join (
+select work2.ACADEMIC_YEAR
+,sum(work2.employ) as total
+from 
+(
+SELECT fact_graduate_work.ACADEMIC_YEAR
+,'ทำงานแล้ว' as graduate_work
+,sum(no_of_employ) as employ
+from fact_graduate_work
+left join DIM_FOREIGN_FLAG on DIM_FOREIGN_FLAG.FOREIGN_FLAG_KEY = fact_graduate_work.FOREIGN_FLAG_KEY
+left join dim_student on dim_student.student_key = fact_graduate_work.student_key
+left join dim_program on dim_program.program_project_code = dim_student.program_project_code
+where (fact_graduate_work.ACADEMIC_YEAR between (paramYEAR)-(paramYEARSUB)+('1') and (paramYEAR))
+and (DIM_FOREIGN_FLAG.FOREIGN_FLAG in (paramFOREIGN) or 'All' in (paramFOREIGN))
+and (dim_program.education_level_code in (paramEDU) or 'All' in (paramEDU))
+group by fact_graduate_work.ACADEMIC_YEAR
+
+union
+
+SELECT fact_graduate_work.ACADEMIC_YEAR
+,'ยังไม่ได้ทำงานและอื่นๆ' as graduate_work
+,sum(no_of_unemploy) as employ
+from fact_graduate_work
+left join DIM_FOREIGN_FLAG on DIM_FOREIGN_FLAG.FOREIGN_FLAG_KEY = fact_graduate_work.FOREIGN_FLAG_KEY
+left join dim_student on dim_student.student_key = fact_graduate_work.student_key
+left join dim_program on dim_program.program_project_code = dim_student.program_project_code
+where (fact_graduate_work.ACADEMIC_YEAR between (paramYEAR)-(paramYEARSUB)+('1') and (paramYEAR))
+and (DIM_FOREIGN_FLAG.FOREIGN_FLAG in (paramFOREIGN) or 'All' in (paramFOREIGN))
+and (dim_program.education_level_code in (paramEDU) or 'All' in (paramEDU))
+group by fact_graduate_work.ACADEMIC_YEAR
+
+union
+
+SELECT fact_graduate_work.ACADEMIC_YEAR
+,'ศึกษาต่อ' as graduate_work
+,sum(no_of_study) as employ
+from fact_graduate_work
+left join DIM_FOREIGN_FLAG on DIM_FOREIGN_FLAG.FOREIGN_FLAG_KEY = fact_graduate_work.FOREIGN_FLAG_KEY
+left join dim_student on dim_student.student_key = fact_graduate_work.student_key
+left join dim_program on dim_program.program_project_code = dim_student.program_project_code
+where (fact_graduate_work.ACADEMIC_YEAR between (paramYEAR)-(paramYEARSUB)+('1') and (paramYEAR))
+and (DIM_FOREIGN_FLAG.FOREIGN_FLAG in (paramFOREIGN) or 'All' in (paramFOREIGN))
+and (dim_program.education_level_code in (paramEDU) or 'All' in (paramEDU))
+group by fact_graduate_work.ACADEMIC_YEAR
+)work2
+group by work2.ACADEMIC_YEAR
+)work3 on work3.ACADEMIC_YEAR = work.ACADEMIC_YEAR
+order by work.ACADEMIC_YEAR
+,work.graduate_work;
+
+    OPEN result_set_1;
+END

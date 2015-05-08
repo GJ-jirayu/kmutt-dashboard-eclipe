@@ -1,0 +1,153 @@
+#body{
+	width:1200px;
+	margin:auto;
+	padding:0px;
+	font:13px Tahoma ;
+	color:#221d1e;
+	
+	/*border:1px red solid;*/
+}
+
+#Param{
+	height:140px;
+	padding:0px;
+	border-radius: 5px;
+	
+	border:1px solid #ffce93;
+	background-image:url("ui-bg.png")
+}
+
+
+#Param #info {
+	
+	height:130px;
+	width:150px;
+	float:left;
+	margin-top:4px;
+	margin-left:4px;
+	/*border:1px red solid;*/
+	border-radius: 5px;
+}
+
+#Param #info #logo{
+	
+	height:130px;
+	width:140px;
+	border-radius: 5px;
+
+}
+
+#Param #ParamLeft {
+	
+	height:130px;
+	width:900px;
+	float:left;
+	margin-top:4px;
+	margin-left:4px;
+	/*border:1px red solid;*/
+	border-radius: 5px;
+}
+
+#Param #ParamLeft #ParamLeft1{
+	
+	height:40px;
+	width:890px;
+	margin-top:4px;
+	margin-left:4px;
+	/*border:1px red solid;*/
+	border-radius: 5px;
+	font:26px Tahoma ;
+	text-align:center;
+	font-weight:bold;
+	
+}
+
+#Param #ParamLeft #ParamLeft2{
+	
+	height:70px;
+	width:890px;
+	margin-top:6px;
+	margin-left:4px;
+	/*border:1px red solid;*/
+	border-radius: 5px;	
+}
+
+#ParamLeft #ParamLeft2 .ParamLeftSub{
+	width:auto;
+	height:20px;
+	padding:0px;
+	float:left;
+	margin-top:10px;
+	margin-left:13px;
+	/*border:1px #000000 solid;*/
+}
+
+#ParamLeft2 .ParamLeftSub .ParamTitle{
+	width:110px;
+	padding:0px;
+	font-weight: bolder; 
+	float:left;
+	/*border:1px #000000 solid;*/
+}
+
+#ParamLeft2 .ParamLeftSub .ParamSubTitle{
+	width:170px;
+	padding:0px;
+	float:left;
+	/*border:1px red solid;*/
+}
+
+#ParamLeft2 .ParamLeftSub #paramFacultyList{
+	width:170px;
+	padding:0px;
+	float:left;
+	/*border:1px red solid;*/
+}
+
+#ParamLeft2 .ParamLeftSub #paramDepartmentList{
+	width:170px;
+	padding:0px;
+	float:left;
+	/*border:1px red solid;*/
+}
+
+
+#Param  #ParamRight{
+	height:130px;
+	width:120px;
+	float:left;
+	/*border:1px red solid;*/
+	border-radius: 5px;
+	margin-top:4px;
+	margin-left:5px;
+	/*margin:14px;*/
+}
+
+#Param  #ParamRight #kmutt{
+	margin-top:8px;
+	margin-left:4px;
+	height:80px;
+	width:110px;
+	/*border:1px red solid;*/
+	border-radius: 5px;
+}
+
+#ParamRight #kmutt #logo{
+	
+	height:80px;
+	width:110px;
+	border-radius: 5px;
+
+}
+
+#Param  #ParamRight #submit{
+	margin-top:8px;
+	margin-left:4px;
+	width:110px;
+	/*border:1px red solid;*/
+	border-radius: 5px;
+}
+
+#Tab{
+	border:1px #cccccc solid;
+}

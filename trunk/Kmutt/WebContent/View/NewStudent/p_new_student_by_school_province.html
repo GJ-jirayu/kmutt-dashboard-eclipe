@@ -1,0 +1,84 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link class="style" href="../../Css/NewStudent/p_new_student_by_school_province.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript"> $(".Year").html($("#embparamYearList").val()) ;</script>
+<style>
+		#Chart_p_new_student_by_school{
+		width:auto;
+		height:500px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+		#Chart_p_new_student_by_school_table_province{
+		width:auto;
+		height:480px;
+		margin-left:auto;
+		margin-right:auto;	
+		/*border:1px solid #cccccc;*/
+	}
+
+</style>
+	<div id = "panel5">
+			<div id = "panelTitleChart5">
+				จำนวนนักศึกษาใหม่ <label class="edu"></label> จำแนกตามจังหวัดและสถาบันที่สำเร็จการศึกษา ปีการศึกษา <label class="Year"></label> <br/>
+				(จำนวนนักศึกษาใหม่  <label class="total_new_student"></label> คน)
+			</div>
+		</div>
+	<div id = "main7">
+		<div id = "topContent7">
+			<div id = "panel7">
+				<div id = "Chart_p_new_student_by_school"> 
+				</div>
+			</div>
+			<div id="panel71">
+				<div id = table>
+					<label id="province"></label> มีจำนวนนักศึกษาใหม่ทั้งหมด <label id="province_total"></label> คน คิดเป็น <label id="province_pa"></label> %
+				</div>
+				<div id = "Chart_p_new_student_by_school_table_province">
+				</div>
+			</div>
+		</div>	
+		
+		<div id = mapcolorProvince>		
+			<table style="height:10px; font:12px Tahoma;">
+					<tr>
+						<td style="width:20px; height:10px;">
+							<table > <tr> <td style="background-color:#ec8200; width:10px; height:10px;"> </td></tr></table>
+						</td> 
+						
+						<td style="width:100px"> > 10.00</td>
+					</tr>
+					<tr>
+						<td style="width:20px; height:10px;">
+							<table> <tr> <td style="background-color:#ff9b20; width:10px; height:10px;"> </td></tr></table>
+						</td> 
+						
+						<td style="width:100px">5.01-10.00</td> 
+					</tr>
+					<tr>
+						<td style="width:20px; height:10px;">
+							<table> <tr> <td style="background-color:#ffba66; width:10px; height:10px;"> </td></tr></table>
+						</td> 
+						
+						<td style="width:100px">1.00-5.00</td>
+					</tr>
+					<tr>
+						<td style="width:20px; height:10px;">
+							<table> <tr> <td style="background-color:#ffe2bf; width:10px; height:10px;"> </td></tr></table>
+						</td> 
+						
+						<td style="width:100px"> < 1.00 </td>
+					</tr>
+					<tr>
+						<td style="width:20px; height:10px;">
+							<table> <tr> <td style="background-color:gray; width:10px; height:10px;"> </td></tr></table>
+						</td> 
+						
+						<td style="width:100px">ไม่มีนักศึกษาใหม่</td>  
+					</tr>
+				</table>
+			</div>
+		<br style = "clear:both">
+	</div>

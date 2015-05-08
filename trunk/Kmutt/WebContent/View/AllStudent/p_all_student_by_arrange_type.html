@@ -1,0 +1,53 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link class="style" href="../../Css/AllStudent/p_all_student_by_arrange_type.css" rel="stylesheet" type="text/css">
+
+<style>
+		#Chart_p_all_student_by_year_and_arrange_type{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+		#Chart_p_all_student_by_faculty_and_arrange_type{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	} 
+	
+	.jqplot-yaxis-tick{
+		color:#000000;
+	}
+</style>
+
+
+<script type="text/javascript"> $(".Year").html($("#embparamYearList").val()) ;</script>
+
+
+<script type="text/javascript"> $(".YearSub").html($("#embparamYearSubList").val()) ;</script>
+
+	<div id = "main2">
+		<div id = "topContent2">
+			<div class = "panel2">
+				<div class = "panelTitleChart2">
+					จำนวนนักศึกษาทั้งหมด จำแนกตามลักษณะการจัดหลักสูตร <br/> 
+					ย้อนหลัง <label class="YearSub"></label> ปี  (คลิกที่แต่ละปีเพื่อดูรายละเอียดในระดับคณะ)
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_all_student_by_year_and_arrange_type" class = "chart"> 
+				</div>
+			</div>
+			<div class="panel2">
+				<div class = "panelTitleChart2">
+					จำนวนนักศึกษาทั้งหมด ปีการศึกษา <label class="Year"></label> <br/>
+					จำแนกตามลักษณะการจัดหลักสูตร เป็นรายคณะ
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_all_student_by_faculty_and_arrange_type" class = "chart">
+				</div>
+			</div>
+		</div>	
+		<br style = "clear:both">
+	</div>

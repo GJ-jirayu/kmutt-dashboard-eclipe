@@ -1,0 +1,195 @@
+CREATE PROCEDURE emp_by_pos_fac_b(IN paramEmpTypeYear VARCHAR(256),IN paramEmpYear VARCHAR(256),IN paramEmpPos VARCHAR(256),IN paramEmpTypeLine VARCHAR(256))
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+		
+	     select kmutt.ORGENIZATION_SHORT_NAME_B
+        ,kmutt.SUB_LEVEL_NAME
+        ,CASE WHEN total.total != 0 THEN DECIMAL(((DECIMAL(kmutt.count_emp,8,2) * 100)/total.total),8,2) ELSE 0 END AS total_NO_OF_STUDY
+        ,kmutt.ORDER_BY_SUB_LEVEL
+        from
+        (                
+		SELECT ORGENIZATION_SHORT_NAME_B
+		, SUB_LEVEL_NAME
+		, count(distinct EMP_KEY) as count_emp
+		, ORDER_BY_SUB_LEVEL
+		FROM HR_FACT_EMPLOYEE
+		left join DIM_DATE on DIM_DATE.DATE_KEY = HR_FACT_EMPLOYEE.MONTH_KEY
+		left join HR_DIM_LEVEL on HR_DIM_LEVEL.LEVEL_KEY = HR_FACT_EMPLOYEE.LEVEL_KEY
+		left join HR_DIM_POSITION_GROUP on HR_DIM_POSITION_GROUP.POSITION_GROUP_KEY = HR_FACT_EMPLOYEE.POSITION_GROUP_KEY
+		left join HR_DIM_EMP_TYPE on HR_DIM_EMP_TYPE.EMP_TYPE_KEY = HR_FACT_EMPLOYEE.EMP_TYPE_KEY
+		left join HR_DIM_EMP_LINE_GROUP on HR_DIM_EMP_LINE_GROUP.EMP_LINE_GROUP_KEY = HR_FACT_EMPLOYEE.EMP_LINE_KEY
+		left join HR_DIM_DEPARTMENT on HR_DIM_DEPARTMENT.DEPARTMENT_KEY = HR_FACT_EMPLOYEE.DEPARTMENT_KEY
+		where (POSITION_GROUP_CODE !=  '3')
+		and (LEVEL_Code in ('A14','A17'))
+		-- and (DIM_DATE.CALENDAR_YEAR = ('2556'))
+		and (DIM_DATE.CALENDAR_YEAR = (paramEmpYear))
+		and (HR_DIM_POSITION_GROUP.POSITION_GROUP_CODE in (paramEmpPos) or 'All' in (paramEmpPos))
+        and (HR_DIM_EMP_TYPE.EMP_TYPE_GROUP_CODE || HR_DIM_EMP_LINE_GROUP.EMP_LINE_GROUP_CODE in (paramEmpTypeLine) or 'All' in (paramEmpTypeLine))
+		group by ORGENIZATION_SHORT_NAME_B
+		, SUB_LEVEL_NAME
+		,ORDER_BY_SUB_LEVEL
+        )kmutt
+        left join (
+        	select ORGENIZATION_SHORT_NAME_B
+                ,sum(total) as total
+                from
+                (                
+                        SELECT ORGENIZATION_SHORT_NAME_B
+                        , SUB_LEVEL_NAME
+                        , count(distinct EMP_KEY) as total
+                        , ORDER_BY_SUB_LEVEL
+                        FROM HR_FACT_EMPLOYEE
+                        left join DIM_DATE on DIM_DATE.DATE_KEY = HR_FACT_EMPLOYEE.MONTH_KEY
+                        left join HR_DIM_LEVEL on HR_DIM_LEVEL.LEVEL_KEY = HR_FACT_EMPLOYEE.LEVEL_KEY
+                        left join HR_DIM_POSITION_GROUP on HR_DIM_POSITION_GROUP.POSITION_GROUP_KEY = HR_FACT_EMPLOYEE.POSITION_GROUP_KEY
+                        left join HR_DIM_EMP_TYPE on HR_DIM_EMP_TYPE.EMP_TYPE_KEY = HR_FACT_EMPLOYEE.EMP_TYPE_KEY
+                        left join HR_DIM_EMP_LINE_GROUP on HR_DIM_EMP_LINE_GROUP.EMP_LINE_GROUP_KEY = HR_FACT_EMPLOYEE.EMP_LINE_KEY
+                        left join HR_DIM_DEPARTMENT on HR_DIM_DEPARTMENT.DEPARTMENT_KEY = HR_FACT_EMPLOYEE.DEPARTMENT_KEY
+                        where (POSITION_GROUP_CODE !=  '3')
+                        and (LEVEL_Code in ('A14','A17'))
+                        -- and (DIM_DATE.CALENDAR_YEAR = ('2556'))
+                        and (DIM_DATE.CALENDAR_YEAR = (paramEmpYear))
+                        and (HR_DIM_POSITION_GROUP.POSITION_GROUP_CODE in (paramEmpPos) or 'All' in (paramEmpPos))
+                        and (HR_DIM_EMP_TYPE.EMP_TYPE_GROUP_CODE || HR_DIM_EMP_LINE_GROUP.EMP_LINE_GROUP_CODE in (paramEmpTypeLine) or 'All' in (paramEmpTypeLine))
+                group by ORGENIZATION_SHORT_NAME_B
+                , SUB_LEVEL_NAME
+                ,ORDER_BY_SUB_LEVEL
+        )kmutt
+        group by ORGENIZATION_SHORT_NAME_B
+        )total on total.ORGENIZATION_SHORT_NAME_B = kmutt.ORGENIZATION_SHORT_NAME_B
+		order by ORDER_BY_SUB_LEVEL,kmutt.ORGENIZATION_SHORT_NAME_B
+		
+	;               
+		
+	DECLARE result_set_2 CURSOR WITH RETURN TO CLIENT FOR
+		
+	        select kmutt.ORGENIZATION_SHORT_NAME_B
+        ,kmutt.SUB_LEVEL_NAME
+        ,CASE WHEN total.total != 0 THEN DECIMAL(((DECIMAL(kmutt.count_emp,8,2) * 100)/total.total),8,2) ELSE 0 END AS total_NO_OF_STUDY
+        ,kmutt.ORDER_BY_SUB_LEVEL
+        from
+        (                
+		SELECT ORGENIZATION_SHORT_NAME_B
+		, SUB_LEVEL_NAME
+		, count(distinct EMP_KEY) as count_emp
+		, ORDER_BY_SUB_LEVEL
+		FROM HR_FACT_EMPLOYEE
+		left join DIM_DATE on DIM_DATE.DATE_KEY = HR_FACT_EMPLOYEE.MONTH_KEY
+		left join HR_DIM_LEVEL on HR_DIM_LEVEL.LEVEL_KEY = HR_FACT_EMPLOYEE.LEVEL_KEY
+		left join HR_DIM_POSITION_GROUP on HR_DIM_POSITION_GROUP.POSITION_GROUP_KEY = HR_FACT_EMPLOYEE.POSITION_GROUP_KEY
+		left join HR_DIM_EMP_TYPE on HR_DIM_EMP_TYPE.EMP_TYPE_KEY = HR_FACT_EMPLOYEE.EMP_TYPE_KEY
+		left join HR_DIM_EMP_LINE_GROUP on HR_DIM_EMP_LINE_GROUP.EMP_LINE_GROUP_KEY = HR_FACT_EMPLOYEE.EMP_LINE_KEY
+		left join HR_DIM_DEPARTMENT on HR_DIM_DEPARTMENT.DEPARTMENT_KEY = HR_FACT_EMPLOYEE.DEPARTMENT_KEY
+		where (POSITION_GROUP_CODE !=  '3')
+		and (LEVEL_Code in ('A14','A17'))
+		-- and (DIM_DATE.FISCAL_YEAR = ('2556'))
+		and (DIM_DATE.FISCAL_YEAR = (paramEmpYear))
+		and (HR_DIM_POSITION_GROUP.POSITION_GROUP_CODE in (paramEmpPos) or 'All' in (paramEmpPos))
+        and (HR_DIM_EMP_TYPE.EMP_TYPE_GROUP_CODE || HR_DIM_EMP_LINE_GROUP.EMP_LINE_GROUP_CODE in (paramEmpTypeLine) or 'All' in (paramEmpTypeLine))
+		group by ORGENIZATION_SHORT_NAME_B
+		, SUB_LEVEL_NAME
+		,ORDER_BY_SUB_LEVEL
+        )kmutt
+        left join (
+        	select ORGENIZATION_SHORT_NAME_B
+                ,sum(total) as total
+                from
+                (                
+                        SELECT ORGENIZATION_SHORT_NAME_B
+                        , SUB_LEVEL_NAME
+                        , count(distinct EMP_KEY) as total
+                        , ORDER_BY_SUB_LEVEL
+                        FROM HR_FACT_EMPLOYEE
+                        left join DIM_DATE on DIM_DATE.DATE_KEY = HR_FACT_EMPLOYEE.MONTH_KEY
+                        left join HR_DIM_LEVEL on HR_DIM_LEVEL.LEVEL_KEY = HR_FACT_EMPLOYEE.LEVEL_KEY
+                        left join HR_DIM_POSITION_GROUP on HR_DIM_POSITION_GROUP.POSITION_GROUP_KEY = HR_FACT_EMPLOYEE.POSITION_GROUP_KEY
+                        left join HR_DIM_EMP_TYPE on HR_DIM_EMP_TYPE.EMP_TYPE_KEY = HR_FACT_EMPLOYEE.EMP_TYPE_KEY
+                        left join HR_DIM_EMP_LINE_GROUP on HR_DIM_EMP_LINE_GROUP.EMP_LINE_GROUP_KEY = HR_FACT_EMPLOYEE.EMP_LINE_KEY
+                        left join HR_DIM_DEPARTMENT on HR_DIM_DEPARTMENT.DEPARTMENT_KEY = HR_FACT_EMPLOYEE.DEPARTMENT_KEY
+                        where (POSITION_GROUP_CODE !=  '3')
+                        and (LEVEL_Code in ('A14','A17'))
+                        -- and (DIM_DATE.FISCAL_YEAR = ('2556'))
+                        and (DIM_DATE.FISCAL_YEAR = (paramEmpYear))
+                        and (HR_DIM_POSITION_GROUP.POSITION_GROUP_CODE in (paramEmpPos) or 'All' in (paramEmpPos))
+                        and (HR_DIM_EMP_TYPE.EMP_TYPE_GROUP_CODE || HR_DIM_EMP_LINE_GROUP.EMP_LINE_GROUP_CODE in (paramEmpTypeLine) or 'All' in (paramEmpTypeLine))
+                group by ORGENIZATION_SHORT_NAME_B
+                , SUB_LEVEL_NAME
+                ,ORDER_BY_SUB_LEVEL
+        )kmutt
+        group by ORGENIZATION_SHORT_NAME_B
+        )total on total.ORGENIZATION_SHORT_NAME_B = kmutt.ORGENIZATION_SHORT_NAME_B	
+		order by ORDER_BY_SUB_LEVEL,kmutt.ORGENIZATION_SHORT_NAME_B
+		
+	;
+		
+    DECLARE result_set_3 CURSOR WITH RETURN TO CLIENT FOR
+		
+	    select kmutt.ORGENIZATION_SHORT_NAME_B
+        ,kmutt.SUB_LEVEL_NAME
+        ,CASE WHEN total.total != 0 THEN DECIMAL(((DECIMAL(kmutt.count_emp,8,2) * 100)/total.total),8,2) ELSE 0 END AS total_NO_OF_STUDY
+        ,kmutt.ORDER_BY_SUB_LEVEL
+        from
+        (                
+		SELECT ORGENIZATION_SHORT_NAME_B
+		, SUB_LEVEL_NAME
+		, count(distinct EMP_KEY) as count_emp
+		, ORDER_BY_SUB_LEVEL
+		FROM HR_FACT_EMPLOYEE
+		left join DIM_DATE on DIM_DATE.DATE_KEY = HR_FACT_EMPLOYEE.MONTH_KEY
+		left join HR_DIM_LEVEL on HR_DIM_LEVEL.LEVEL_KEY = HR_FACT_EMPLOYEE.LEVEL_KEY
+		left join HR_DIM_POSITION_GROUP on HR_DIM_POSITION_GROUP.POSITION_GROUP_KEY = HR_FACT_EMPLOYEE.POSITION_GROUP_KEY
+		left join HR_DIM_EMP_TYPE on HR_DIM_EMP_TYPE.EMP_TYPE_KEY = HR_FACT_EMPLOYEE.EMP_TYPE_KEY
+		left join HR_DIM_EMP_LINE_GROUP on HR_DIM_EMP_LINE_GROUP.EMP_LINE_GROUP_KEY = HR_FACT_EMPLOYEE.EMP_LINE_KEY
+		left join HR_DIM_DEPARTMENT on HR_DIM_DEPARTMENT.DEPARTMENT_KEY = HR_FACT_EMPLOYEE.DEPARTMENT_KEY
+		where (POSITION_GROUP_CODE !=  '3')
+		and (LEVEL_Code in ('A14','A17'))
+		-- and (DIM_DATE.ACADAMIC_YEAR = ('2556'))
+		and (DIM_DATE.ACADAMIC_YEAR = (paramEmpYear))
+		and (HR_DIM_POSITION_GROUP.POSITION_GROUP_CODE in (paramEmpPos) or 'All' in (paramEmpPos))
+        and (HR_DIM_EMP_TYPE.EMP_TYPE_GROUP_CODE || HR_DIM_EMP_LINE_GROUP.EMP_LINE_GROUP_CODE in (paramEmpTypeLine) or 'All' in (paramEmpTypeLine))
+		group by ORGENIZATION_SHORT_NAME_B
+		, SUB_LEVEL_NAME
+		,ORDER_BY_SUB_LEVEL
+        )kmutt
+        left join (
+        	select ORGENIZATION_SHORT_NAME_B
+                ,sum(total) as total
+                from
+                (                
+                        SELECT ORGENIZATION_SHORT_NAME_B
+                        , SUB_LEVEL_NAME
+                        , count(distinct EMP_KEY) as total
+                        , ORDER_BY_SUB_LEVEL
+                        FROM HR_FACT_EMPLOYEE
+                        left join DIM_DATE on DIM_DATE.DATE_KEY = HR_FACT_EMPLOYEE.MONTH_KEY
+                        left join HR_DIM_LEVEL on HR_DIM_LEVEL.LEVEL_KEY = HR_FACT_EMPLOYEE.LEVEL_KEY
+                        left join HR_DIM_POSITION_GROUP on HR_DIM_POSITION_GROUP.POSITION_GROUP_KEY = HR_FACT_EMPLOYEE.POSITION_GROUP_KEY
+                        left join HR_DIM_EMP_TYPE on HR_DIM_EMP_TYPE.EMP_TYPE_KEY = HR_FACT_EMPLOYEE.EMP_TYPE_KEY
+                        left join HR_DIM_EMP_LINE_GROUP on HR_DIM_EMP_LINE_GROUP.EMP_LINE_GROUP_KEY = HR_FACT_EMPLOYEE.EMP_LINE_KEY
+                        left join HR_DIM_DEPARTMENT on HR_DIM_DEPARTMENT.DEPARTMENT_KEY = HR_FACT_EMPLOYEE.DEPARTMENT_KEY
+                        where (POSITION_GROUP_CODE !=  '3')
+                        and (LEVEL_Code in ('A14','A17'))
+                        -- and (DIM_DATE.ACADAMIC_YEAR = ('2556'))
+                        and (DIM_DATE.ACADAMIC_YEAR = (paramEmpYear))
+                        and (HR_DIM_POSITION_GROUP.POSITION_GROUP_CODE in (paramEmpPos) or 'All' in (paramEmpPos))
+                        and (HR_DIM_EMP_TYPE.EMP_TYPE_GROUP_CODE || HR_DIM_EMP_LINE_GROUP.EMP_LINE_GROUP_CODE in (paramEmpTypeLine) or 'All' in (paramEmpTypeLine))
+                group by ORGENIZATION_SHORT_NAME_B
+                , SUB_LEVEL_NAME
+                ,ORDER_BY_SUB_LEVEL
+        )kmutt
+        group by ORGENIZATION_SHORT_NAME_B
+        )total on total.ORGENIZATION_SHORT_NAME_B = kmutt.ORGENIZATION_SHORT_NAME_B	
+		order by ORDER_BY_SUB_LEVEL,kmutt.ORGENIZATION_SHORT_NAME_B
+		
+	;        	
+		
+     IF (paramEmpTypeYear) = 'CALENDAR_YEAR' THEN
+        OPEN  result_set_1;
+     ELSEIF(paramEmpTypeYear) = 'FISCAL_YEAR' THEN
+        OPEN  result_set_2;
+     ELSE
+        OPEN  result_set_3;
+     END IF;
+END

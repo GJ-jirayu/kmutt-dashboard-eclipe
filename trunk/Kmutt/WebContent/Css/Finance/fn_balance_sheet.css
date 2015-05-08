@@ -1,0 +1,135 @@
+#body{
+	width:1400px;
+	margin:auto;
+	padding:0px;
+	font:16px Tahoma ;
+	color:#221d1e;
+	border-radius: 5px;
+	border:2px solid #99ccff;
+	background:#fcfdfe;
+}
+
+#Param{
+	width:99.2%;
+	height:40px;
+	/*border:1px solid #008ec3;*/
+	/*background:#008ec3;*/
+	border:2px solid #aed0ea;
+	background:url("../../images/ui-bg_highlight-soft_100_deedf7_1x100.png")repeat-x scroll 50% 50% ;
+	margin-top:4px;
+	margin-left:4px;
+	border-radius: 5px;	
+}
+
+#Param #ParamLeft {
+	
+	height:auto;
+	width:auto;
+	float:left;
+	margin-top:8px;
+}
+
+#Param  #ParamRight{
+	height:auto;
+	width:auto;
+	float:Right;
+	margin-top:2px;
+	margin-Right:10px;
+}
+
+#Param #ParamLeft #ParamLeft2{
+	height:auto;
+	width:auto;
+}
+
+#ParamLeft #ParamLeft2 .ParamLeftSub{
+	width:auto;
+	height:20px;
+	padding:0px;
+	float:left;
+	margin-left:13px;
+}
+
+#ParamLeft2 .ParamLeftSub .ParamTitle{
+	width:auto;
+	padding:0px;
+	font-weight: bolder; 
+	float:left;
+	/*border:1px #000000 solid;*/
+}
+
+#ParamLeft2 .ParamLeftSub .ParamSubTitle{
+	width:auto;
+	padding:0px;
+	float:left;
+	margin-left:6px;
+}
+
+#mainContent{
+	width:auto;
+	height:auto;
+	margin:6px;
+	/*border:1px #000000 solid;*/
+}
+
+#mainContent #row1{
+	width:820px;
+	height:auto;
+	/*border:1px solid red;*/
+	float:left;
+	margin-left:18px;
+}
+
+#mainContent #row2{
+	width:550px;
+	height:auto;
+	/*border:1px solid #000000;*/	
+	float:left;
+}
+
+#mainContent #row2 #column2{
+	border:1px solid #aed0ea;
+	margin-top:20px;
+}
+
+#accname{
+	/*border:1px solid #dddddd;*/
+	font-weight: bolder; 
+	text-align:center;
+	padding-top:5px;
+	padding-bottom:5px;
+	border:1px solid #ffffff;
+	background:#008ec3;
+	color:#ffffff;
+}
+
+#dateyear{
+	/*border:1px solid #dddddd;*/
+	font-weight: bolder; 
+	text-align:center;
+	padding-top:5px
+}
+
+#remark{
+	text-align:center;
+	font:14px Tahoma ;
+}
+
+#tb{
+	border:2px solid #aed0ea;
+	font:16px Tahoma ;
+	width:548px;
+	height:auto;
+}
+
+.level1,.level2{
+	cursor:pointer;
+}
+
+#hi{
+	/*border:1px solid #aed0ea;*/
+	width:auto;
+	height:auto;
+	text-align:center;
+	font-weight: bolder;
+}

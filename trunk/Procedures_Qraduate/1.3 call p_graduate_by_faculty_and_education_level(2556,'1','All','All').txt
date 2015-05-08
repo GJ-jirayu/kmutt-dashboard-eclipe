@@ -1,0 +1,50 @@
+CREATE PROCEDURE p_graduate_by_faculty_and_education_level(IN paramYEAR INTEGER,IN paramSEMESTER VARCHAR(256),IN paramFOREIGN VARCHAR(256),IN paramEDU VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+
+select case when gj.FACULTY_NAME_INITIAL = 'KMUTT' then 'อื่นๆ' else FACULTY_NAME_INITIAL end as FACULTY_NAME_INITIAL
+,gj.education_level
+,CASE WHEN gj2.Total != 0 THEN DECIMAL(((DECIMAL(gj.Graduate,8,2) * 100)/gj2.Total),8,2) ELSE 0 END AS TotalGraduate
+from
+(
+select DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,EDUCATION_LEVEL_CODE
+,education_level
+,sum(no_of_graduate) as Graduate
+from fact_graduate
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_graduate.SEMESTER_KEY
+left join DIM_PROGRAM on DIM_PROGRAM.PROGRAM_KEY = fact_graduate.PROGRAM_KEY
+left join DIM_FIELD on DIM_FIELD.FIELD_KEY = fact_graduate.FIELD_KEY
+left join DIM_FOREIGN_FLAG on DIM_FOREIGN_FLAG.FOREIGN_FLAG_KEY = fact_graduate.FOREIGN_FLAG_KEY
+left join DIM_FACULTY on DIM_FACULTY.FACULTY_CODE = DIM_FIELD.FACULTY_CODE
+where (DIM_SEMESTER.ACADEMIC_YEAR in (paramYEAR))
+and (DIM_SEMESTER.SEMESTER_CODE in (paramSEMESTER) or 'All' in (paramSEMESTER))
+and (DIM_FOREIGN_FLAG.FOREIGN_FLAG in (paramFOREIGN) or 'All' in (paramFOREIGN))
+and (DIM_PROGRAM.EDUCATION_LEVEL_CODE in (paramEDU) or 'All' in (paramEDU))
+group by DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,EDUCATION_LEVEL_CODE
+,education_level
+)gj
+left join (
+select DIM_FACULTY.FACULTY_CODE
+,sum(no_of_graduate) as Total
+from fact_graduate
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_graduate.SEMESTER_KEY
+left join DIM_PROGRAM on DIM_PROGRAM.PROGRAM_KEY = fact_graduate.PROGRAM_KEY
+left join DIM_FIELD on DIM_FIELD.FIELD_KEY = fact_graduate.FIELD_KEY
+left join DIM_FOREIGN_FLAG on DIM_FOREIGN_FLAG.FOREIGN_FLAG_KEY = fact_graduate.FOREIGN_FLAG_KEY
+left join DIM_FACULTY on DIM_FACULTY.FACULTY_CODE = DIM_FIELD.FACULTY_CODE
+where (DIM_SEMESTER.ACADEMIC_YEAR in (paramYEAR))
+and (DIM_SEMESTER.SEMESTER_CODE in (paramSEMESTER) or 'All' in (paramSEMESTER))
+and (DIM_FOREIGN_FLAG.FOREIGN_FLAG in (paramFOREIGN) or 'All' in (paramFOREIGN))
+and (DIM_PROGRAM.EDUCATION_LEVEL_CODE in (paramEDU) or 'All' in (paramEDU))
+group by DIM_FACULTY.FACULTY_CODE
+)gj2 on gj2.FACULTY_CODE = gj.FACULTY_CODE
+order by EDUCATION_LEVEL_CODE ,gj.FACULTY_CODE;
+
+    OPEN result_set_1;
+END

@@ -1,0 +1,36 @@
+CREATE PROCEDURE paramForeign() 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+	
+select FOREIGN_FLAG, FOREIGN_NAME
+from
+(
+SELECT FOREIGN_FLAG
+,'นักศึกษาไทย' as FOREIGN_NAME
+,'1' as nos
+FROM DIM_FOREIGN_FLAG
+where FOREIGN_FLAG = 'N'
+
+union
+
+SELECT FOREIGN_FLAG
+,'นักศึกษาต่างชาติ' as FOREIGN_NAME
+,'2' as nos
+FROM DIM_FOREIGN_FLAG
+where FOREIGN_FLAG = 'Y'
+
+union
+
+SELECT 'All' as FOREIGN_NAME
+,'All' as FOREIGN_NAME
+,'3' as nos
+from sysibm.sysdummy1
+)FOREIGNS
+order by nos
+;
+	
+    OPEN result_set_1;
+END
+	

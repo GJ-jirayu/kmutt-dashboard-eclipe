@@ -1,0 +1,28 @@
+CREATE PROCEDURE fn_paramOrg(IN paramFnArea VARCHAR(256),IN paramFnOrg VARCHAR(256))
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+        select ORGENIZATION_CODE
+		,ORGENIZATION_NAME
+		from
+		(
+		SELECT ORGENIZATION_CODE
+		, ORGENIZATION_NAME
+		FROM FN_DIM_DEPARTMENT
+		where DEPARTMENT_KEY != 1
+		and (AREA_CODE in (paramFnArea) or 'All' in (paramFnArea))
+		group by ORGENIZATION_CODE
+		, ORGENIZATION_NAME
+
+		 union
+						
+		SELECT 'All' as ORGENIZATION_CODE
+		,'รวมทุกคณะ' as ORGENIZATION_NAME
+		from sysibm.sysdummy1
+		)kmutt
+		where (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+		order by ORGENIZATION_CODE
+	;    
+        OPEN  result_set_1;
+END

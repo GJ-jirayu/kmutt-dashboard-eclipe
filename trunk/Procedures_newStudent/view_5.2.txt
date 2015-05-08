@@ -1,0 +1,78 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link class="style" href="../../Css/NewStudent/p_new_student_by_school_province.css" rel="stylesheet" type="text/css">
+
+<style>
+		#Chart_p_new_student_by_school{
+		width:auto;
+		height:500px;
+		margin-left:auto;
+		margin-right:auto;	
+		/*border:1px solid #cccccc;*/
+	}
+	
+		#Chart_p_new_student_by_school_table_province{
+		width:auto;
+		height:480px;
+		margin-left:auto;
+		margin-right:auto;	
+		/*border:1px solid #cccccc;*/
+	}
+
+</style>
+
+	<div id = "main7">
+		<div id = "topContent7">
+			<div id = "panel7">
+				<div id = "Chart_p_new_student_by_school"> 
+				</div>
+			</div>
+			<div id="panel71">
+				<div id = table>
+					<label id="province"></label> มีจำนวนนักศึกษาใหม่ทั้งหมด <label id="province_total"></label> คน คิดเป็น <label id="province_pa"></label> %
+				</div>
+				<div id = "Chart_p_new_student_by_school_table_province">
+				</div>
+			</div>
+		</div>	
+		
+		<div id = mapcolorProvince>		
+			<table style="height:10px; font:12px Tahoma;">
+					<tr>
+						<td style="width:20px; height:10px;">
+							<table > <tr> <td style="background-color:#9F000F; width:10px; height:10px;"> </td></tr></table>
+						</td> 
+						
+						<td style="width:100px"> > 10.00</td>
+					</tr>
+					<tr>
+						<td style="width:20px; height:10px;">
+							<table> <tr> <td style="background-color:#FF2400; width:10px; height:10px;"> </td></tr></table>
+						</td> 
+						
+						<td style="width:100px">5.01-10.00</td> 
+					</tr>
+					<tr>
+						<td style="width:20px; height:10px;">
+							<table> <tr> <td style="background-color:#FF8040; width:10px; height:10px;"> </td></tr></table>
+						</td> 
+						
+						<td style="width:100px">1.00-5.00</td>
+					</tr>
+					<tr>
+						<td style="width:20px; height:10px;">
+							<table> <tr> <td style="background-color:#F9966B; width:10px; height:10px;"> </td></tr></table>
+						</td> 
+						
+						<td style="width:100px"> < 1.00 </td>
+					</tr>
+					<tr>
+						<td style="width:20px; height:10px;">
+							<table> <tr> <td style="background-color:gray; width:10px; height:10px;"> </td></tr></table>
+						</td> 
+						
+						<td style="width:100px">ไม่มีนักศึกษาใหม่</td>  
+					</tr>
+				</table>
+			</div>
+		<br style = "clear:both">
+	</div>

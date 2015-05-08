@@ -1,0 +1,51 @@
+#main7{
+	color:#000000;
+	font:13px Tahoma;
+	/*border:1px solid red;*/
+}
+
+#topContent7{
+	/*width:950px;*/
+	height:auto;
+	margin-left:auto;
+	margin-right:auto;	
+	/*border:1px solid yellow;*/
+}
+
+#topContent7 #panel7{
+	float:left;
+	width:450px;
+	height:500px;
+	background:#ffffff;
+	border-radius: 5px;
+	margin:1.5px;
+	border:1px solid #cccccc;
+}
+
+#topContent7 #panel71{
+	float:left;
+	width:650px;
+	height:500px;
+	background:#ffffff;
+	border-radius: 5px;
+	margin:1.5px;
+	border:1px solid #cccccc;
+}
+
+#topContent7 #panel71 #table{
+	
+	text-align:center;
+	font-weight:bold;
+	color:#000000;
+	padding:5px;
+	background:#f6f6f6;
+	border-bottom:1px solid #c5c5c5;
+}
+
+#mapcolorProvince{
+	position:absolute;
+	/*z-index:99;*/
+	top:400px;
+	left:300px;
+	text-align:left;
+}

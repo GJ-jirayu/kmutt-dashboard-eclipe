@@ -1,0 +1,63 @@
+<link class="style" href="../../Css/NewStudent/p_new_student_admission_type.css" rel="stylesheet" type="text/css">
+
+<style>
+		#Chart_p_new_student_by_faculty_and_admission_type{
+		width:1120px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+		#Chart_p_new_student_by_faculty{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+		#Chart_p_new_student_by_faculty_and_grade_range{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+</style>
+
+	<script type="text/javascript"> $(".Year").html($("#embparamYearList").val()) ;</script>
+	
+	<div id = "main2">
+		<div id = "topContent2">
+			<div id = "panel1">
+				<div class = "panelTitleChart1">
+					จำนวนนักศึกษาใหม่ จำแนกตามคณะและประเภทการรับเข้า ปีการศึกษา <label class="Year"></label><br/>
+					(คลิกที่แต่ละประเภทการรับเข้าพื่อดูรายละเอียดระดับคณะ)
+				</div>
+				<br/><br/>
+				<div id = "Chart_p_new_student_by_faculty_and_admission_type" class = "chart"> 
+				</div>
+			</div>
+			
+			<div id="panel2">
+				<div class = "pa1">
+					<div class = "panelTitleChart1">
+						จำนวนนักศึกษาใหม่ ปีการศึกษา <label class="Year"></label> <label class="paramAdmis"></label><br/>
+						แยกตามสัดส่วนของช่วงเกรด
+					</div>
+					<br/><br/>
+					<div id = "Chart_p_new_student_by_faculty_and_grade_range" class = "chart">
+					</div>
+				</div>
+				<div class = "pa2">
+					<div class = "panelTitleChart1">
+						จำนวนนักศึกษาใหม่ตามหลักสูตร ปีการศึกษา <label class="Year"></label><br/> 
+						<label class="paramAdmis"></label> จำแนกตามคณะ
+					</div>
+					<br/><br/>
+					<div id = "Chart_p_new_student_by_faculty" class = "chart">
+					</div>
+				</div>
+			</div>
+		</div>	
+		<br style = "clear:both">
+	</div>

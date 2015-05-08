@@ -1,0 +1,43 @@
+CREATE PROCEDURE emp_paramBou() 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+				
+	select STUDY_BOUNDARY_CODE
+,STUDY_BOUNDARY_NAME
+from
+(
+SELECT STUDY_BOUNDARY_CODE
+, STUDY_BOUNDARY_NAME
+,'1' as nos
+ FROM HR_DIM_STUDY_BOUNDARY
+ 
+union
+ 
+ SELECT '23' as STUDY_BOUNDARY_CODE
+,'ศึกษาต่อสะสมในประเทศ' as STUDY_BOUNDARY_NAME
+,'1' as nos
+from sysibm.sysdummy1
+
+union
+ 
+ SELECT '24' as STUDY_BOUNDARY_CODE
+,'ศึกษาต่อสะสมต่างประเทศ' as STUDY_BOUNDARY_NAME
+,'1' as nos
+from sysibm.sysdummy1
+
+union
+ 
+ SELECT 'All' as STUDY_BOUNDARY_CODE
+,'รวม' as STUDY_BOUNDARY_NAME
+,'2' as nos
+from sysibm.sysdummy1
+ )Bou
+ where STUDY_BOUNDARY_CODE != 'ไม่ระบุ'
+order by nos,STUDY_BOUNDARY_CODE
+ 
+	;
+		
+    OPEN result_set_1;
+END

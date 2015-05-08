@@ -1,0 +1,28 @@
+CREATE PROCEDURE p_teacher_per_ftes_by_faculty(IN paramYEAR INTEGER,IN paramSEMESTER VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+	
+select case when FACULTY_NAME_INITIAL = 'KMUTT' then 'อื่นๆ' else FACULTY_NAME_INITIAL end as FACULTY_NAME_INITIAL
+,teacher
+,CASE WHEN NO_OF_TEACHER != 0 THEN no_of_student/NO_OF_TEACHER ELSE 0 END AS test
+from
+(
+select DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,'สัดส่วนอาจารย์ประจำต่อ FTES' as teacher
+,sum(no_of_student_ftes) as no_of_student
+,sum(NO_OF_TEACHER) as NO_OF_TEACHER
+from fact_teacher_student 
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_teacher_student.SEMESTER_KEY
+left join DIM_FACULTY on DIM_FACULTY.FACULTY_KEY = fact_teacher_student.FACULTY_KEY
+where (DIM_SEMESTER.ACADEMIC_YEAR in (paramYEAR))
+and (DIM_SEMESTER.SEMESTER_CODE in (paramSEMESTER) or 'All' in (paramSEMESTER))
+group by DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+)gj
+order by teacher,gj.FACULTY_CODE;
+	
+    OPEN result_set_1;
+END

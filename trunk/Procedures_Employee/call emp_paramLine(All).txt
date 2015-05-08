@@ -1,0 +1,33 @@
+CREATE PROCEDURE emp_paramLine(IN paramType VARCHAR(256))
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+				
+select EMP_LINE_CODE
+,EMP_LINE_NAME
+from
+(
+SELECT 'All' as EMP_LINE_CODE
+,'รวม' as EMP_LINE_NAME
+,'2' as nos
+from sysibm.sysdummy1
+
+union
+
+select EMP_LINE_CODE
+,EMP_LINE_NAME
+,'1' as nos
+FROM HR_FACT_EMPLOYEE
+left join HR_DIM_EMP_TYPE	on HR_DIM_EMP_TYPE.EMP_TYPE_KEY = HR_FACT_EMPLOYEE.EMP_TYPE_KEY
+left join HR_DIM_EMP_LINE	on HR_DIM_EMP_LINE.EMP_LINE_KEY = HR_FACT_EMPLOYEE.EMP_LINE_KEY
+where (EMP_TYPE_CODE in (paramType) or 'All' in (paramType))
+group by EMP_LINE_CODE
+,EMP_LINE_NAME
+)kmutt
+order by nos,EMP_LINE_CODE
+				
+	;
+		
+    OPEN result_set_1;
+END

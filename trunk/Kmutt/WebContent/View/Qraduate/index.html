@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KMUTT_Dashboard</title>
+
+<!-- main library start-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jqplot/jquery.js"></script>-->
+<!-- <script src="http://www.goingjesse.com/chartFunction/libraryChart/jqplot/jquery.jqplot.min.js" type="text/javascript" language="javascript"></script>-->
+<!-- <link href="http://www.goingjesse.com/chartFunction/libraryChart/jqplot/jquery.jqplot.min.css" type="text/css" rel="stylesheet"/>-->
+<!-- <link href="http://www.goingjesse.com/chartFunction/libraryChart/jquery-jvectormap/jquery-jvectormap-1.2.2.css" type="text/css" rel="stylesheet"/>-->
+<!-- <script src="http://www.goingjesse.com/chartFunction/libraryChart/jquery-jvectormap/jquery-jvectormap-1.2.2.min.js"></script>-->
+<!-- <script src="http://www.goingjesse.com/chartFunction/libraryChart/bootsrap/js/bootstrap.min.js"></script>-->
+<!-- <link href="http://www.goingjesse.com/chartFunction/libraryChart/kendoCommercial/styles/kendo.common.min.css" rel="stylesheet" />-->
+<!-- <link href="http://www.goingjesse.com/chartFunction/libraryChart/kendoCommercial/styles/kendo.default.min.css" rel="stylesheet" />-->
+<!-- <script src="http://www.goingjesse.com/chartFunction/libraryChart/kendoCommercial/js/kendo.all.min.js"></script>-->
+<!-- main library end-->
+
+<!--  library  chart start -->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jqplot/plugins/jqplot.barRenderer.min.js" type="text/javascript" language="javascript"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jqplot/plugins/jqplot.categoryAxisRenderer.min.js" type="text/javascript" language="javascript"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jqplot/plugins/jqplot.pointLabels.min.js" type="text/javascript" language="javascript"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jqplot/plugins/jqplot.pieRenderer.min.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jqplot/plugins/jqplot.donutRenderer.min.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jqplot/plugins/jqplot.meterGaugeRenderer.min.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jquery-jvectormap/jquery-jvectormap-th_regions-mill-en.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jquery-jvectormap/jquery-jvectormap-th-mill-th.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jquery-jvectormap/jquery-jvectormap-th-region-mill-th.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jquery-jvectormap/jquery-jvectormap-world-mill-en.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/libraryChart/jqplot/plugins/jqplot.highlighter.js"></script>-->
+<!--  library  chart end -->
+
+<!--  library function chart start -->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/Controller/initial.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/Controller/barChart.js"></script>--> 
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/Controller/barChartHorizontal.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/Controller/donutChart.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/Controller/lineChart.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/Controller/pieChart.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/Controller/barLineChart.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/Controller/gaugeChart.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/Controller/map.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/Controller/table.js"></script>-->
+<!-- <script type="text/javascript" src="http://www.goingjesse.com/chartFunction/Controller/mainJs.js"></script>-->
+<!--  library function chart end -->
+
+<!-- main library start-->
+<script src="../../libraryChart/jqplot/jquery.js"></script>
+<script src="../../libraryChart/jqplot/jquery.jqplot.min.js" type="text/javascript" language="javascript"></script>
+<link href="../../libraryChart/jqplot/jquery.jqplot.min.css" type="text/css" rel="stylesheet"/>
+<link href="../../libraryChart/jquery-jvectormap/jquery-jvectormap-1.2.2.css" type="text/css" rel="stylesheet"/>
+<script src="../../libraryChart/jquery-jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="../../libraryChart/bootsrap/js/bootstrap.min.js"></script>
+<link href="../../libraryChart/kendoCommercial/styles/kendo.common.min.css" rel="stylesheet" />
+<link href="../../libraryChart/kendoCommercial/styles/kendo.default.min.css" rel="stylesheet" />
+<script src="../../libraryChart/kendoCommercial/js/kendo.all.min.js"></script>
+<!-- main library end-->
+
+<!--  library  chart start -->
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.barRenderer.min.js" type="text/javascript" language="javascript"></script>
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.categoryAxisRenderer.min.js" type="text/javascript" language="javascript"></script>
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.pointLabels.min.js" type="text/javascript" language="javascript"></script>
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.donutRenderer.min.js"></script>
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.meterGaugeRenderer.min.js"></script>
+<script type="text/javascript" src="../../libraryChart/jquery-jvectormap/jquery-jvectormap-th_regions-mill-en.js"></script>
+<script type="text/javascript" src="../../libraryChart/jquery-jvectormap/jquery-jvectormap-th-mill-th.js"></script>
+<script type="text/javascript" src="../../libraryChart/jquery-jvectormap/jquery-jvectormap-th-region-mill-th.js"></script>
+<script type="text/javascript" src="../../libraryChart/jquery-jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.highlighter.js"></script>
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.euroFormatter.js"></script>
+
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.ohlcRenderer.min.js"></script>
+
+<!--  library  chart start -->
+
+<!--  library function chart start -->
+<script type="text/javascript" src="../../Controller/initial.js"></script> 
+<script type="text/javascript" src="../../Controller/barChart.js"></script> 
+<script type="text/javascript" src="../../Controller/barChartHorizontal.js"></script>
+<script type="text/javascript" src="../../Controller/donutChart.js"></script>
+<script type="text/javascript" src="../../Controller/lineChart.js"></script>
+<script type="text/javascript" src="../../Controller/pieChart.js"></script>
+<script type="text/javascript" src="../../Controller/barLineChart.js"></script>
+<script type="text/javascript" src="../../Controller/gaugeChart.js"></script>
+<script type="text/javascript" src="../../Controller/map.js"></script>
+<script type="text/javascript" src="../../Controller/table.js"></script>
+<script type="text/javascript" src="../../Controller/mainJs.js"></script>
+
+<script type="text/javascript" src="../../Controller/candlestick.js"></script>
+<!--  library function chart end -->
+
+<style>
+	#tabs{
+		font-size:13px;
+	}	
+</style>
+
+	<!-- <script src="../../js/jquery.min.js"> </script>  -->
+	<link href="../../Css/main.css" rel="stylesheet" type="text/css">
+	<link href="../../jquery-ui/css/custom-theme/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css">
+	<!-- <script src="../../jquery-ui/js/jquery-1.10.2.js"></script>  -->
+	<script src="../../jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+	
+<!-- call Controller main Start -->
+	<script src="../../Controller/main.js"> </script>
+	<script src="../../Controller/Qraduate/p_graduate_by_education_level.js"> </script>
+	<script src="../../Controller/Qraduate/p_graduate_vs_plan.js"> </script>
+	<script src="../../Controller/Qraduate/p_graduate_work.js"> </script>
+	<script src="../../Controller/Qraduate/test.js"> </script>
+<!-- call Controller main END -->
+
+<script type="text/javascript" src="../../libraryChart/jqplot/plugins/jqplot.enhancedLegendRenderer.min.js"></script>
+
+</head>
+<body>
+<div id="body">
+	<form id="formAction">
+		<div id="Param">
+			<div id = info>
+  			 <img id="logo" src="../../images/Kmutt.png">
+			</div>
+			<div id = "ParamLeft">
+			
+				<div id = ParamLeft1>
+					ระบบสารสนเทศออนไลน์
+				</div>
+				
+				<div id = ParamLeft2>
+				<div id = "ParamYear" class = "ParamLeftSub">
+					<div class = "ParamTitle">ปีการศึกษา</div>
+					<div class = "ParamSubTitle" id = "paramYearList"></div>
+				</div>
+				
+				<div id = "ParamSem" class = "ParamLeftSub">
+					<div class = "ParamTitle">ภาคการศึกษา	</div>
+					<div class = "ParamSubTitle" id = "paramSemesterGraList"></div>
+				</div>
+				
+				<div id = "ParamFore" class = "ParamLeftSub">
+					<div class = "ParamTitle">ประเภทนักศึกษา</div>
+					<div class = "ParamSubTitle" id = "paramForeignList"></div>
+				</div>
+				
+				<div id = "ParamEdu" class = "ParamLeftSub">
+					<div class = "ParamTitle">ระดับการศึกษา</div>
+					<div class = "ParamSubTitle" id = "paramEducationList"></div>
+				</div>
+				
+				<div id = "ParamAdmissType" class = "ParamLeftSub">
+					<div class = "ParamTitle">ประเภทการรับเข้า</div>
+					<div class = "ParamSubTitle" id = "paramAdmissionTypeList"></div>
+				</div>
+				
+				<div id = "ParamYearSub" class = "ParamLeftSub">
+					<div class = "ParamTitle">จำนวนปีย้อนหลัง</div>
+					<div class = "ParamSubTitle">
+					 <select id="paramSize">
+              			<option>5</option>
+               			<option>4</option>
+                		<option>3</option>
+               		</select>
+               		</div>
+				</div>
+				</div>
+			</div>
+				
+			<div id = "ParamRight">		
+				<div id = "kmutt">
+					<img id="logo" src="../../images/kmutt.jpg">
+				</div>
+				<div id="submit"> 
+					<input type="submit" id="btnSubmit" name="btnSubmit" value="เรียกดูข้อมูล"  style="height:30px; width:auto; text-align:center" >
+				</div>
+			</div>
+		</div>
+	</form>
+		<div id="maincontent">
+			<div id="tabs">
+				<ul>
+					<li><a href="#tabs-1">จำนวนร้อยละของผู้สำเร็จการศึกษา</a></li>
+					<li><a href="#tabs-2">จำนวนผู้สำเร็จการศึกษาเปรียบเทียบแผน</a></li>
+					<li><a href="#tabs-3">ภาวะการมีงานทำของผู้สำเร็จการศึกษา</a></li>
+				</ul>
+			<div id="tabs-1"></div>
+			<div id="tabs-2"></div>
+			<div id="tabs-3"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

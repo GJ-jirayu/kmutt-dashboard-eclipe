@@ -1,0 +1,208 @@
+﻿-- หลักสูตร_กราฟ 1.1 (กราฟวงกลม) --curriculum_arrange_type_by_year
+select DIM_PROGRAM.ARRANGE_TYPE , count(distinct fact_new_student.FIELD_KEY) as Total
+from fact_new_student
+left join DIM_PROGRAM on DIM_PROGRAM.PROGRAM_KEY = fact_new_student.PROGRAM_KEY
+left join DIM_FIELD on DIM_FIELD.FIELD_KEY = fact_new_student.FIELD_KEY
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_new_student.SEMESTER_KEY
+where DIM_SEMESTER.ACADEMIC_YEAR in (2555)
+and DIM_PROGRAM.EDUCATION_LEVEL_CODE in ('001')
+group by DIM_PROGRAM.ARRANGE_TYPE
+order by DIM_PROGRAM.ARRANGE_TYPE
+
+-- หลักสูตร_กราฟ 1.2 (กราฟแท่งนอน) --curriculum_arrange_type_by_field
+select gj2.FACULTY_NAME_INITIAL
+,gj2.ARRANGE_TYPE
+,DECIMAL(((DECIMAL(gj2.Total_FIELD,8,2) * 100)/gj3.Total_FIELD),8,2) as Totalemploy
+from 
+(select FACULTY_CODE
+,FACULTY_NAME_INITIAL
+,ARRANGE_TYPE
+,count(FIELD_KEY) as Total_FIELD
+from 
+(
+select DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,DIM_PROGRAM.ARRANGE_TYPE
+,fact_new_student.FIELD_KEY
+from fact_new_student
+left join DIM_PROGRAM on DIM_PROGRAM.PROGRAM_KEY = fact_new_student.PROGRAM_KEY
+left join DIM_FIELD on DIM_FIELD.FIELD_KEY = fact_new_student.FIELD_KEY
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_new_student.SEMESTER_KEY
+left join DIM_FACULTY on DIM_FACULTY.FACULTY_CODE = DIM_FIELD.FACULTY_CODE
+where (DIM_SEMESTER.ACADEMIC_YEAR in (2556))
+-- and (DIM_PROGRAM.EDUCATION_LEVEL_CODE in (paramEDU) or 'All' in (paramEDU))
+group by DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,DIM_PROGRAM.ARRANGE_TYPE
+,fact_new_student.FIELD_KEY
+)gj
+group by FACULTY_CODE
+,FACULTY_NAME_INITIAL
+,ARRANGE_TYPE
+)gj2
+left join (
+select FACULTY_CODE
+,count(FIELD_KEY) as Total_FIELD
+from 
+(
+select DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,DIM_PROGRAM.ARRANGE_TYPE
+,fact_new_student.FIELD_KEY
+from fact_new_student
+left join DIM_PROGRAM on DIM_PROGRAM.PROGRAM_KEY = fact_new_student.PROGRAM_KEY
+left join DIM_FIELD on DIM_FIELD.FIELD_KEY = fact_new_student.FIELD_KEY
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_new_student.SEMESTER_KEY
+left join DIM_FACULTY on DIM_FACULTY.FACULTY_CODE = DIM_FIELD.FACULTY_CODE
+where (DIM_SEMESTER.ACADEMIC_YEAR in (2556))
+-- and (DIM_PROGRAM.EDUCATION_LEVEL_CODE in (paramEDU) or 'All' in (paramEDU))
+group by DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,DIM_PROGRAM.ARRANGE_TYPE
+,fact_new_student.FIELD_KEY
+)gj
+group by FACULTY_CODE
+)gj3 on gj3.FACULTY_CODE = gj2.FACULTY_CODE
+order by gj2.ARRANGE_TYPE
+,gj2.FACULTY_CODE
+
+-- หลักสูตร_กราฟ 2.1 (กราฟวงกลม) --curriculum_fee_type_by_year
+select DIM_PROGRAM.FEE_TYPE , count(distinct fact_new_student.FIELD_KEY) as Total
+from fact_new_student
+left join DIM_PROGRAM on DIM_PROGRAM.PROGRAM_KEY = fact_new_student.PROGRAM_KEY
+left join DIM_FIELD on DIM_FIELD.FIELD_KEY = fact_new_student.FIELD_KEY
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_new_student.SEMESTER_KEY
+where DIM_SEMESTER.ACADEMIC_YEAR in (2555)
+and DIM_PROGRAM.EDUCATION_LEVEL_CODE in ('001')
+group by DIM_PROGRAM.FEE_TYPE
+order by DIM_PROGRAM.FEE_TYPE
+
+-- หลักสูตร_กราฟ 2.2 (กราฟแท่งนอน) --curriculum_fee_type_by_field
+select gj2.FACULTY_NAME_INITIAL
+,gj2.FEE_TYPE
+,DECIMAL(((DECIMAL(gj2.total_FIELD,8,2) * 100)/gj4.total_FIELD),8,2) as TotalFIELD
+from
+(select FACULTY_CODE
+,FACULTY_NAME_INITIAL
+,FEE_TYPE
+,count(FIELD_KEY) as total_FIELD
+from
+(
+select DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,DIM_PROGRAM.FEE_TYPE 
+,fact_new_student.FIELD_KEY
+from fact_new_student
+left join DIM_PROGRAM on DIM_PROGRAM.PROGRAM_KEY = fact_new_student.PROGRAM_KEY
+left join DIM_FIELD on DIM_FIELD.FIELD_KEY = fact_new_student.FIELD_KEY
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_new_student.SEMESTER_KEY
+left join DIM_FACULTY on DIM_FACULTY.FACULTY_CODE = DIM_FIELD.FACULTY_CODE
+where (DIM_SEMESTER.ACADEMIC_YEAR in (2556))
+-- and (DIM_PROGRAM.EDUCATION_LEVEL_CODE in (paramEDU) or 'All' in (paramEDU))
+group by DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,DIM_PROGRAM.FEE_TYPE 
+,fact_new_student.FIELD_KEY
+)gj 
+group by FACULTY_CODE
+,FACULTY_NAME_INITIAL
+,FEE_TYPE
+)gj2
+left join (
+select FACULTY_CODE
+,count(FIELD_KEY) as total_FIELD
+from
+(
+select DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,DIM_PROGRAM.FEE_TYPE 
+,fact_new_student.FIELD_KEY
+from fact_new_student
+left join DIM_PROGRAM on DIM_PROGRAM.PROGRAM_KEY = fact_new_student.PROGRAM_KEY
+left join DIM_FIELD on DIM_FIELD.FIELD_KEY = fact_new_student.FIELD_KEY
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_new_student.SEMESTER_KEY
+left join DIM_FACULTY on DIM_FACULTY.FACULTY_CODE = DIM_FIELD.FACULTY_CODE
+where (DIM_SEMESTER.ACADEMIC_YEAR in (2556))
+-- and (DIM_PROGRAM.EDUCATION_LEVEL_CODE in (paramEDU) or 'All' in (paramEDU))
+group by DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,DIM_PROGRAM.FEE_TYPE 
+,fact_new_student.FIELD_KEY
+)gj 
+group by FACULTY_CODE
+)gj4 on gj4.FACULTY_CODE = gj2.FACULTY_CODE
+order by gj2.FEE_TYPE
+,gj2.FACULTY_CODE
+
+
+-- หลักสูตร_กราฟ 3.1 (กราฟวงกลม) --curriculum_schedule_type_by_year
+select DIM_SCHEDULE_PLAN.SCHEDULE_TYPE_NAME , count(distinct fact_new_student.FIELD_KEY) as Total
+from fact_new_student
+left join DIM_SCHEDULE_PLAN on DIM_SCHEDULE_PLAN.SCHEDULE_PLAN_KEY = fact_new_student.SCHEDULE_PLAN_KEY
+left join DIM_PROGRAM on DIM_PROGRAM.PROGRAM_KEY = fact_new_student.PROGRAM_KEY
+left join DIM_FIELD on DIM_FIELD.FIELD_KEY = fact_new_student.FIELD_KEY
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_new_student.SEMESTER_KEY
+where DIM_SEMESTER.ACADEMIC_YEAR in (2555)
+and DIM_PROGRAM.EDUCATION_LEVEL_CODE in ('001')
+group by DIM_SCHEDULE_PLAN.SCHEDULE_TYPE_NAME
+order by DIM_SCHEDULE_PLAN.SCHEDULE_TYPE_NAME
+
+-- หลักสูตร_กราฟ 3.2 (กราฟแท่งนอน) --curriculum_schedule_type_by_field
+select gj2.FACULTY_NAME_INITIAL
+,gj2.SCHEDULE_TYPE_NAME
+,DECIMAL(((DECIMAL(gj2.total_FIELD,8,2) * 100)/gj4.total_FIELD),8,2) as Totalemploy
+from
+(
+select gj.FACULTY_CODE
+,gj.FACULTY_NAME_INITIAL
+,gj.SCHEDULE_TYPE_NAME 
+,count(gj.FIELD_KEY) as total_FIELD
+from
+(
+select DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,DIM_SCHEDULE_PLAN.SCHEDULE_TYPE_NAME 
+,fact_new_student.FIELD_KEY
+from fact_new_student
+left join DIM_SCHEDULE_PLAN on DIM_SCHEDULE_PLAN.SCHEDULE_PLAN_KEY = fact_new_student.SCHEDULE_PLAN_KEY
+left join DIM_PROGRAM on DIM_PROGRAM.PROGRAM_KEY = fact_new_student.PROGRAM_KEY
+left join DIM_FIELD on DIM_FIELD.FIELD_KEY = fact_new_student.FIELD_KEY
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_new_student.SEMESTER_KEY
+left join DIM_FACULTY on DIM_FACULTY.FACULTY_CODE = DIM_FIELD.FACULTY_CODE
+where (DIM_SEMESTER.ACADEMIC_YEAR in (2556))
+-- and (DIM_PROGRAM.EDUCATION_LEVEL_CODE in (paramEDU) or 'All' in (paramEDU))
+group by DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,DIM_SCHEDULE_PLAN.SCHEDULE_TYPE_NAME 
+,fact_new_student.FIELD_KEY
+)gj
+group by gj.FACULTY_CODE
+,gj.FACULTY_NAME_INITIAL
+,gj.SCHEDULE_TYPE_NAME
+)gj2
+left join (
+select FACULTY_CODE
+,count(FIELD_KEY) as total_FIELD
+from
+(
+select DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,DIM_SCHEDULE_PLAN.SCHEDULE_TYPE_NAME 
+,fact_new_student.FIELD_KEY
+from fact_new_student
+left join DIM_SCHEDULE_PLAN on DIM_SCHEDULE_PLAN.SCHEDULE_PLAN_KEY = fact_new_student.SCHEDULE_PLAN_KEY
+left join DIM_PROGRAM on DIM_PROGRAM.PROGRAM_KEY = fact_new_student.PROGRAM_KEY
+left join DIM_FIELD on DIM_FIELD.FIELD_KEY = fact_new_student.FIELD_KEY
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_new_student.SEMESTER_KEY
+left join DIM_FACULTY on DIM_FACULTY.FACULTY_CODE = DIM_FIELD.FACULTY_CODE
+where (DIM_SEMESTER.ACADEMIC_YEAR in (2556))
+-- and (DIM_PROGRAM.EDUCATION_LEVEL_CODE in (paramEDU) or 'All' in (paramEDU))
+group by DIM_FACULTY.FACULTY_CODE
+,DIM_FACULTY.FACULTY_NAME_INITIAL
+,DIM_SCHEDULE_PLAN.SCHEDULE_TYPE_NAME 
+,fact_new_student.FIELD_KEY
+)gj
+group by FACULTY_CODE
+)gj4 on gj4.FACULTY_CODE = gj2.FACULTY_CODE
+order by gj2.SCHEDULE_TYPE_NAME
+,gj2.FACULTY_CODE

@@ -1,0 +1,91 @@
+#main{
+	/*border:1px solid #cccccc;*/
+}
+
+#main #head{
+	/*border:1px solid #771b0c;*/
+	border-radius: 5px;
+}
+
+#head #headChart{
+	border:1px solid #99ccff;
+	background:#fcfdfe;
+	width:709px;
+	height:425px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:10px;
+	margin-bottom:10px;
+	border-radius: 5px;
+}
+
+#head #headTitleChart{
+	text-align:center;
+	font-weight:bold;
+	padding:10px;
+	margin-bottom:20px;
+	border:1px solid #ffffff;
+	background:#008ec3;
+	color:#ffffff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+
+#main #detail{
+	
+	/*border:1px solid #771b0c;*/
+	margin-top:5px;
+	border-radius: 5px;
+}
+
+#detail .detailChartfac{
+	border:1px solid #99ccff;
+	background:#fcfdfe;
+	margin:5px;
+	height:425px;
+	width:709px;
+	border-radius: 5px;
+	float:left;
+	
+}
+
+#detail .detailTitleChartfac{
+	text-align:center;
+	font-weight:bold;
+	padding:10px;
+	margin-bottom:50px;
+	border:1px solid #ffffff;
+	background:#008ec3;
+	color:#ffffff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+#detail .detailChartdep{
+	border:1px solid #99ccff;
+	background:#fcfdfe;
+	margin:5px;
+	height:425px;
+	width:709px;
+	border-radius: 5px;
+	float:left;
+}
+
+#detail .detailTitleChartdep{
+	text-align:center;
+	font-weight:bold;
+	padding:10px;
+	margin-bottom:50px;
+	border:1px solid #ffffff;
+	background:#008ec3;
+	color:#ffffff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.unit{
+	font:12px Tahoma ;
+	width:690px;
+	text-align:right;
+}

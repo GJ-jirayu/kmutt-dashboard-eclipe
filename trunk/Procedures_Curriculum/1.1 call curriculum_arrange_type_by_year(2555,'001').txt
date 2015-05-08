@@ -1,0 +1,18 @@
+CREATE PROCEDURE curriculum_arrange_type_by_year (IN paramYEAR INTEGER,IN paramEDU VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+	
+select DIM_PROGRAM.ARRANGE_TYPE , count(distinct fact_all_student.FIELD_KEY) as Total
+from fact_all_student
+left join DIM_PROGRAM on DIM_PROGRAM.PROGRAM_KEY = fact_all_student.PROGRAM_KEY
+left join DIM_FIELD on DIM_FIELD.FIELD_KEY = fact_all_student.FIELD_KEY
+left join DIM_SEMESTER on DIM_SEMESTER.SEMESTER_KEY = fact_all_student.SEMESTER_KEY
+where (DIM_SEMESTER.ACADEMIC_YEAR in (paramYEAR))
+and (DIM_PROGRAM.EDUCATION_LEVEL_CODE in (paramEDU) or 'All' in (paramEDU))
+group by DIM_PROGRAM.ARRANGE_TYPE
+order by DIM_PROGRAM.ARRANGE_TYPE desc;
+
+    OPEN result_set_1;
+END

@@ -1,0 +1,87 @@
+CREATE PROCEDURE fn_revenue_ratio_year(IN paramFnYear VARCHAR(256),IN paramFnOrg VARCHAR(256),IN paramFnDep VARCHAR(256)) 
+DYNAMIC RESULT SETS 1 
+LANGUAGE SQL 
+BEGIN 
+    DECLARE result_set_1 CURSOR WITH RETURN TO CLIENT FOR
+		
+		select ITEM_GROUP_NAME
+		,TypeRe
+		,AMOUNT
+		from
+		(
+			select ITEM_GROUP_NAME
+			,TypeRe
+			, CASE WHEN budget = 0 THEN 0 ELSE DECIMAL((dec(BUDGET_AMOUNT,20,2)/budget),20,2) END as AMOUNT
+			,'1' as nos
+			,LEVEL_LINE
+			from
+			(SELECT ITEM_GROUP_NAME
+			, 'แผน' as TypeRe
+			, CASE WHEN sum(BUDGET_AMOUNT) < 0 THEN sum(BUDGET_AMOUNT)*-1 ELSE sum(BUDGET_AMOUNT) END AS BUDGET_AMOUNT
+			, CASE WHEN BUDGET is null THEN 0 ELSE BUDGET END as BUDGET
+			,LEVEL_LINE
+			FROM FN_YEARLY_DEPARTMENT
+			left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+			left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+			left join (
+							SELECT TEMPLATE_CODE
+							, CASE WHEN sum(BUDGET_AMOUNT) < '0' THEN sum(BUDGET_AMOUNT)*(-1) ELSE sum(BUDGET_AMOUNT) END AS BUDGET
+							FROM FN_YEARLY_DEPARTMENT
+							left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+							left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+							where TEMPLATE_CODE = '5'
+							and LEVEL_CODE = '1'
+							and LEVEL_LINE = '1'
+							and (FISCAL_YEAR = (paramFnYear))
+							and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+							and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+							group by TEMPLATE_CODE
+			)BU on BU.TEMPLATE_CODE = FN_YEARLY_DEPARTMENT.TEMPLATE_CODE
+			where FN_YEARLY_DEPARTMENT.TEMPLATE_CODE = '5'
+			and (FISCAL_YEAR = (paramFnYear))
+			and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+			and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+			group by ITEM_GROUP_NAME, FN_YEARLY_DEPARTMENT.TEMPLATE_CODE, LEVEL_CODE, LEVEL_LINE,BUDGET
+			)kmu
+			
+			union
+			
+			select ITEM_GROUP_NAME
+			,TypeRe
+			, CASE WHEN budget = 0 THEN 0 ELSE DECIMAL((dec(ACTUAL_AMOUNT,20,2)/budget),20,2) END as AMOUNT
+			,'2' as nos
+			,LEVEL_LINE
+			from
+			(SELECT ITEM_GROUP_NAME
+			, 'ผล' as TypeRe
+			,CASE WHEN sum(ACTUAL_AMOUNT) < 0 THEN sum(ACTUAL_AMOUNT)*-1 ELSE sum(ACTUAL_AMOUNT) END AS ACTUAL_AMOUNT
+			, CASE WHEN BUDGET is null THEN 0 ELSE BUDGET END as BUDGET
+			,LEVEL_LINE
+			FROM FN_YEARLY_DEPARTMENT
+			left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+			left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+			left join (
+							SELECT TEMPLATE_CODE
+							, CASE WHEN sum(ACTUAL_AMOUNT) < '0' THEN sum(ACTUAL_AMOUNT)*(-1) ELSE sum(ACTUAL_AMOUNT) END AS BUDGET
+							FROM FN_YEARLY_DEPARTMENT
+							left join DIM_DATE on DIM_DATE.DATE_KEY = FN_YEARLY_DEPARTMENT.YEAR_KEY
+							left join FN_DIM_DEPARTMENT on FN_DIM_DEPARTMENT.DEPARTMENT_KEY = FN_YEARLY_DEPARTMENT.DEPARTMENT_KEY
+							where TEMPLATE_CODE = '5'
+							and LEVEL_CODE = '1'
+							and LEVEL_LINE = '1'
+							and (FISCAL_YEAR = (paramFnYear))						
+							and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+							and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+							group by TEMPLATE_CODE
+			)BU on BU.TEMPLATE_CODE = FN_YEARLY_DEPARTMENT.TEMPLATE_CODE
+			where FN_YEARLY_DEPARTMENT.TEMPLATE_CODE = '5'
+			and (FISCAL_YEAR = (paramFnYear))
+			and (ORGENIZATION_CODE in (paramFnOrg) or 'All' in (paramFnOrg))
+			and (DEPARTMENT_CODE in (paramFnDep) or 'All' in (paramFnDep))
+			group by ITEM_GROUP_NAME, FN_YEARLY_DEPARTMENT.TEMPLATE_CODE, LEVEL_CODE, LEVEL_LINE,BUDGET
+			)kmu
+		)gj
+		order by nos,LEVEL_LINE
+	;        	
+    OPEN  result_set_1;
+END

@@ -1,0 +1,69 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link class="style" href="../../Css/Employee/cp_all_employee_by_position.css" rel="stylesheet" type="text/css">
+
+<style>
+		#Chart_emp_by_pos_year{
+		width:650px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+	#Chart_emp_by_pos_fac_a{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+	
+	#Chart_emp_by_pos_fac_b{
+		width:540px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+		/*border:1px solid #cccccc;*/
+	}
+
+</style>
+
+<script type="text/javascript"> $(".Year").html($("#embemp_paramYear").val()) ;</script>
+<script type="text/javascript"> $(".YearSub").html($("#embemp_paramSizeList").val()) ;</script>
+
+	<div id = "main6">
+		<div id = "topContent6">
+			<div class = "panel6">
+				<div class = "panelTitleChart6">
+					จำนวนบุคลากรสายวิชาการ(<label class="posism"></label>) จำแนกตามตำแหน่งทางวิชาการ <br/>
+					ย้อนหลัง <label class="YearSub"></label> ปี (คลิกที่แต่ละปีเพื่อดูรายละเอียดในระดับคณะ)
+				</div>
+				<br/><br/>
+				<div id = "Chart_emp_by_pos_year" class = "chart"> 
+				</div>
+			</div>
+		</div>
+		
+		<div id = "topCon6">
+			<div class="panel6">
+				<div class = "panelTitleChart6">
+					จำนวนบุคลากรสายวิชาการ(<label class="posism"></label>) ในแต่ละคณะ	<br/> 
+					จำแนกตามตำแหน่งทางวิชาการ ปี <label class="Year"></label><br/>
+				</div>
+				<br/><br/>
+				<div id = "Chart_emp_by_pos_fac_a" class = "chart">
+				</div>
+			</div>
+			
+			<div class="panel6">
+				<div class = "panelTitleChart6">
+					ร้อยละของบุคลากรสายวิชาการ(<label class="posism"></label>) ในแต่ละคณะ <br/> 
+					 จำแนกตามตำแหน่งทางวิชาการ  ปี <label class="Year"></label><br/>
+				</div>
+				<br/><br/>
+				<div id = "Chart_emp_by_pos_fac_b" class = "chart">
+				</div>
+			</div>
+		</div>	
+		<br style = "clear:both">
+	</div>
